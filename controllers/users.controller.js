@@ -1,86 +1,116 @@
-import { User } from "../models/User.model.js"
+import { User } from '../models/User.model.js'
+import bcryptjs from 'bcryptjs' //modulo para hashear la contraseña
+import crypto from 'crypto' //modulo para generar codigos aleatorios
+import defaultResponse from '../config/response.js'
+import jwt from 'jsonwebtoken' //modulo para utilizar los metodos de jwt
 
 const controller = {
-  // CRUD
-  create: async (req, res) => {
-    try {
-      await User.create(req.body)
-      res.status(201).json({
-        success: true,
-        response: req.body,
-      })
-    } catch (error) {
-      res.status(404).json({
-        success: false,
-        response: "Error creando el usuario",
-      })
-      console.log(error)
+
+    signup: async (req, res, next) => {
+        req.body.is_online = false //agrego las propiedades que el cliente NO envió
+        req.body.is_admin = false
+        req.body.is_author = false
+        req.body.is_company = false
+        req.body.is_verified = true //por ahora en true
+        req.body.verify_code = crypto.randomBytes(10).toString('hex') //defino el codigo de verificacion por mail
+        req.body.password = bcryptjs.hashSync(req.body.password, 10) //encripto o hasheo la contraseña
+        try {
+            //await accountVerificationEmail(req,res) //envío mail de verificación (SPRINT-4)
+            await User.create(req.body) //crea el usuario
+            req.body.success = true
+            req.body.sc = 201 //agrego el codigo de estado
+            req.body.data = 'user created' //agrego el mensaje o información que necesito enviarle al cliente
+            return defaultResponse(req,res) //retorno la respuesta default
+        } catch (error) {
+            next(error) //respuesta del manejador de errores
+        }
+    },
+
+    signin: async (req, res, next) => {
+        let { password } = req.body
+        let { user } = req
+        try {
+            const verified = bcryptjs.compareSync(password, user.password) //comparo contraseña
+            if(verified) {
+                await User.findOneAndUpdate( //busco y actualizo
+                    { mail: user.mail }, //parametro de busqueda
+                    { is_online: true }, //parametro a modificar
+                    { new: true } //especificacion que reemplace el documento de origen
+                )
+                let token = jwt.sign( //creo la firma de jwt
+                    { id: user.id }, //parametro a convertir en token
+                    process.env.KEY_JWT, //parámetro secreto, necesario para la conversion
+                    { expiresIn: 60*60*24 } //tiempo de expiracion en segundos
+                )
+                //console.log(token)
+                user = { //protejo mas datos sensibles
+                    mail: user.mail,
+                    photo: user.photo
+                }
+                req.body.success = true
+                req.body.sc = 200
+                req.body.data = { user,token }
+                return defaultResponse(req,res)
+            }
+                req.body.success = false
+                req.body.sc = 400
+                req.body.data = 'invalid credentials'                
+            return defaultResponse(req,res)
+        } catch (error) {
+            next(error) //respuesta del catch
+        }
+    },
+
+    signintoken: async (req, res, next) => {
+        let { user } = req
+        try {
+            req.body.success = true
+            req.body.sc = 200
+            req.body.data = { user }
+            return defaultResponse(req,res)
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    signout: async (req, res, next) => {
+        const { mail } = req.user
+        try {
+            //si tiene éxito debe cambiar online de true a false
+            await User.findOneAndUpdate(
+                { mail }, //parametro de busqueda
+                { is_online: false }, //parametro a modificar
+                { new: true } //especificacion que reemplace el documento de origen
+
+            )
+            req.body.success = true
+            req.body.sc = 200
+            req.body.data = 'come back soon!'
+            return defaultResponse(req,res)
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    read: async(req,res,next) => {
+        try {
+            let all = await User.find()
+            if (all) {
+                req.body.success = true
+                req.body.sc = 200
+                req.body.data = { all }
+                return defaultResponse(req,res)
+            } else {
+                req.body.success = false
+                req.body.sc = 404
+                req.body.data = 'no users yet'
+                return defaultResponse(req,res)
+            }            
+        } catch(error) {
+            next(error)
+        }        
     }
-  }, // Create a new user (POST)
-  read: async (req, res) => {
-    try {
-      let users = await User.find()
-      res.status(200).json({
-        success: true,
-        response: users,
-      })
-    } catch {
-      res.status(404).json({
-        success: false,
-        response: "Error al obtener usuarios",
-      })
-    }
-  }, // Read all users (GET)
-  one: async (req, res) => {
-    try {
-      let { user_id } = req.params
-      let user = await User.findById(user_id)
-      res.status(200).json({
-        success: true,
-        response: user,
-      })
-    } catch (error) {
-      res.status(404).json({
-        success: false,
-        response: "Error al obtener el usuario",
-      })
-      console.log(error)
-    }
-  }, // Read one user (GET)
-  update: async (req, res) => {
-    try {
-      let { user_id } = req.params
-      await User.findOneAndUpdate({ _id: user_id }, req.body, {
-        new: true,
-      })
-      res.status(200).json({
-        success: true,
-        response: "Usuario actualizado",
-      })
-    } catch (error) {
-      res.status(404).json({
-        success: false,
-        response: "Error al actualizar el usuario",
-      })
-      console.log(error)
-    }
-  }, // Update a user (PUT)
-  destroy: async (req, res) => {
-    try {
-      let { user_id } = req.params
-      await User.findByIdAndDelete(user_id)
-      res.status(200).json({
-        success: true,
-        response: "Usuario eliminado",
-      })
-    } catch (error) {
-      res.status(404).json({
-        success: false,
-        response: "Error al eliminar el usuario",
-      })
-      console.log(error)
-    }
-  }, // Delete a user (DELETE)
+
 }
 
 export default controller
