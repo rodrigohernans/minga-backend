@@ -9,7 +9,7 @@ router.get("/", function (req, res, next) {
   res.send('minga server ready')
 })
 
-router.use("/users", users)
+router.use("/auth", users)
 router.use("/categories", categories)
 router.use("/api/comments", comments)
 
