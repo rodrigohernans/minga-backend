@@ -2,7 +2,7 @@ import 'dotenv/config.js'
 import './config/database.js'
 
 import { __dirname } from "./utils.js"
-import createError from "http-errors"
+import cors from "cors"
 import express from "express"
 import indexRouter from "./routes/index.js"
 import logger from "morgan"

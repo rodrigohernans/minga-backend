@@ -1,6 +1,6 @@
 import express from 'express'
 let router = express.Router()
-import schema from '../schemas/auth.schema.js'
+import schema from '../schemas/signup.schema.js'
 import validator from '../middlewares/validator.js'
 import accountExistsSignUp from '../middlewares/accountExistsSignUp.js'
 import accountExistsSignIn from '../middlewares/accountExistsSignIn.js'

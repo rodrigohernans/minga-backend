@@ -1,6 +1,6 @@
 import passport from 'passport'
 import passportJwt from 'passport-jwt'
-import { User } from '../models/User.js'
+import { User } from '../models/User.model.js'
 const { KEY_JWT } = process.env
 
 passport.use(

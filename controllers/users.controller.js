@@ -1,4 +1,4 @@
-import { User } from '../models/User.js'
+import { User } from '../models/User.model.js'
 import bcryptjs from 'bcryptjs' //modulo para hashear la contraseña
 import crypto from 'crypto' //modulo para generar codigos aleatorios
 import jwt from 'jsonwebtoken' //modulo para utilizar los metodos de jwt
