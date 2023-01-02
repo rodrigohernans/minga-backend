@@ -1,4 +1,5 @@
 import categories from "./categories.route.js"
+import comments from "./comments.route.js"
 import express from "express"
 import users from "./users.route.js"
 const router = express.Router()
@@ -10,5 +11,6 @@ router.get("/", function (req, res, next) {
 
 router.use("/users", users)
 router.use("/categories", categories)
+router.use("/api/comments", comments)
 
 export default router
