@@ -2,13 +2,14 @@ import 'dotenv/config.js'
 import './config/database.js'
 
 import { __dirname } from "./utils.js"
+import cors from "cors"
 import createError from "http-errors"
+import { errorHandler } from './middlewares/errorHandler.js'
 import express from "express"
 import indexRouter from "./routes/index.js"
 import logger from "morgan"
-import path from "path"
 import { notFoundHandler } from './middlewares/notFoundHandler.js'
-import { errorHandler } from './middlewares/errorHandler.js'
+import path from "path"
 
 const app = express()
 

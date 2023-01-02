@@ -1,14 +1,18 @@
-import express from 'express'
-let router = express.Router()
-import schema from '../schemas/auth.schema.js'
-import validator from '../middlewares/validator.js'
-import accountExistsSignUp from '../middlewares/accountExistsSignUp.js'
 import accountExistsSignIn from '../middlewares/accountExistsSignIn.js'
+import accountExistsSignUp from '../middlewares/accountExistsSignUp.js'
 import accountHasBeenVerified from './../middlewares/accountHasBeenVerified.js'
-import mustSignIn from '../middlewares/mustSignIn.js'
 import controller from '../controllers/users.controller.js'
-const { signup,signin,signintoken,signout,read } = controller
+import express from 'express'
+import mustSignIn from '../middlewares/mustSignIn.js'
 import passport from '../config/passport.js'
+import schema from '../schemas/signup.schema.js'
+import validator from '../middlewares/validator.js'
+
+let router = express.Router()
+// import schema from '../schemas/auth.schema.js'
+
+const { signup,signin,signintoken,signout,read } = controller
+
 
 
 router.post('/signup',accountExistsSignUp,validator(schema),signup)

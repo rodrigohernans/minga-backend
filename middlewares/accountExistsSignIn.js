@@ -1,4 +1,4 @@
-import { User } from '../models/User.js'
+import { User } from '../models/User.model.js'
 import defaultResponse from '../config/response.js'
 
 async function accountExistsSignIn(req,res,next) {
