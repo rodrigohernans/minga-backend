@@ -1,23 +1,20 @@
-import controller from "../controllers/users.controller.js"
-import express from "express"
+import express from 'express'
+let router = express.Router()
+import schema from '../schemas/auth.schema.js'
+import validator from '../middlewares/validator.js'
+import accountExistsSignUp from '../middlewares/accountExistsSignUp.js'
+import accountExistsSignIn from '../middlewares/accountExistsSignIn.js'
+import accountHasBeenVerified from './../middlewares/accountHasBeenVerified.js'
+import mustSignIn from '../middlewares/mustSignIn.js'
+import controller from '../controllers/users.controller.js'
+const { signup,signin,signintoken,signout,read } = controller
+import passport from '../config/passport.js'
 
-const router = express.Router()
 
-const { read, one, create, update, destroy } = controller
-
-// POST create a user
-router.post("/" , create)
-
-// GET all users
-router.get("/" , read)
-
-// GET one user
-router.get("/:user_id" , one)
-
-// PUT update a user
-router.put("/:user_id" , update)
-
-// DELETE delete a user
-router.delete("/:user_id" , destroy)
+router.post('/signup',accountExistsSignUp,validator(schema),signup)
+router.post('/signin',accountExistsSignIn,accountHasBeenVerified,signin)
+router.post('/token',passport.authenticate('jwt', { session:false }),mustSignIn,signintoken)
+router.put('/signout',passport.authenticate('jwt', { session:false }),signout)
+router.get('/',read)
 
 export default router
