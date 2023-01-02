@@ -7,7 +7,7 @@ import express from "express"
 import indexRouter from "./routes/index.js"
 import logger from "morgan"
 import path from "path"
-import usersRouter from "./routes/users.js"
+import usersRouter from "./routes/users.route.js"
 
 const app = express()
 
