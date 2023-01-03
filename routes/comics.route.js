@@ -1,13 +1,12 @@
-import controller from "../controllers/comics.controllers.js";
-import {createSchema} from "../schema/comics.schema.js";
-import express from 'express'
-import validator from "../middlewares/validator.js";
+import controller from "../controllers/comics.controllers.js"
+import { createSchema } from "../schemas/comics.schema.js"
+import express from "express"
+import validator from "../middlewares/validator.js"
 
-const router = express.Router() 
-
+const router = express.Router()
 
 const { create } = controller
 
-router.post('/', validator(createSchema) ,create)  
+router.post("/", validator(createSchema), create)
 
-export default router  
+export default router
