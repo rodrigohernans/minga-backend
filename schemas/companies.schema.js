@@ -1,7 +1,13 @@
-import Joi from "joi";
+import Joi from "joi-oid";
 
 const schema = Joi.object ({
-    name: Joi.string().required().min(3).max(140),
+    name: Joi.string().required().min(3).max(140).message({
+        "any.required" : "Field required.",
+        "string.empty" : "Field cannot be empty.",
+        "string.min" : "Field is too short.",
+        "string.max" : "Field is too long.",
+        "string.base" : "Field is not a text field"
+    }),
     logo: Joi.string().required(),
     website: Joi.string().required(),
     description: Joi.string().required().min(10),
