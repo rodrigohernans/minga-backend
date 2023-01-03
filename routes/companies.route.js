@@ -1,4 +1,4 @@
-import companyAlreadyExists from "../middlewares/companyExists";
+import activeCompany from "../middlewares/activeCompany.js";
 import controller from "../controllers/companies.controller.js";
 import express from "express";
 import schema from "../schemas/companies.schema.js";
@@ -8,6 +8,6 @@ const router = express.Router();
 
 const { create } = controller;
 
-router.post("/", companyAlreadyExists, validator(schema), create);
+router.post("/", activeCompany, validator(schema), create);
 
 export default router;
