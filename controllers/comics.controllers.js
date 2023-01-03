@@ -6,12 +6,17 @@ const controller = {
             await Comic.create(req.body)
             res.status(201).json({
                 success: true,
-                response: req.body, 
+                response: req.body,
             })
         } catch (error) {
-            console.log(error)
+            res.status(404).json({
+                success:false,
+                response: 'Error al crear el comic'
+            })
         }
     }
 }
+
+
 
 export default controller 
