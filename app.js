@@ -3,6 +3,7 @@ import './config/database.js'
 
 import { __dirname } from "./utils.js"
 import cors from "cors"
+import { errorHandler } from "./middlewares/errorHandler.js"
 import express from "express"
 import indexRouter from "./routes/index.js"
 import logger from "morgan"
