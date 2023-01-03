@@ -4,7 +4,7 @@ const schema = Joi.object(
     {
         comic_id: Joi.objectId().required(),
         title: Joi.string().required().min(1),
-        pages: Joi.number().required(),
+        pages: Joi.array().required(),
         order: Joi.number()
     }
 )

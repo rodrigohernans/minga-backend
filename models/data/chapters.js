@@ -9,18 +9,7 @@ let chapters = [
         title: "Nuevo chapter",
         pages: ["1", "2"],
         order: 10
-    },
-    {
-        comic_id: "63b33ec6314eea2b2abb8e8a",
-        title: "Nuevo chapter 2",
-        pages: ["1", "2", "3"],
-    },
-    {
-        comic_id: "63b33ec6314eea2b2abb8e8a",
-        title: "Nuevo chapter 3",
-        pages: ["1"],
-        order: 2
-    },
+    }
 ]
 
 Chapter.insertMany(chapters)
