@@ -7,6 +7,7 @@ import express from "express"
 import indexRouter from "./routes/index.js"
 import logger from "morgan"
 import { notFoundHandler } from './middlewares/notFoundHandler.js'
+import { errorHandler } from './middlewares/errorHandler.js'
 import path from "path"
 
 const app = express()

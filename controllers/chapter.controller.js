@@ -18,10 +18,10 @@ const controller = {
     },
     read: async (req, res) => {
         try {
-            let categories = await Category.find()
+            let chapters = await Chapter.find()
             res.status(200).json({
                 success: true,
-                response: categories,
+                response: chapters,
             })
         } catch {
             res.status(400).json({
