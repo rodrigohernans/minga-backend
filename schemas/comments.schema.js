@@ -1,6 +1,6 @@
 import Joi from 'joi-oid'
 
-const schema = Joi.object({
+export const createSchema = Joi.object({
   text: Joi.string().required().min(1).max(200).messages({
     'string.base': `debe ser de tipo String`,
     'string.empty': `no puede estar vacío`,
@@ -12,5 +12,3 @@ const schema = Joi.object({
   chapter_id: Joi.objectId().required(),
   commentable_id: Joi.objectId().required(),
 })
-
-export default schema
