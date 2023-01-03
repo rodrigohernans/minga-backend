@@ -15,6 +15,7 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "joi": "^17.7.0",
     "joi-oid": "^1.1.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.2",

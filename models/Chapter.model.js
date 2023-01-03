@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const chapterSchema = new mongoose.Schema(
     {
         comic_id: {
-            type: mongoose.Types.ObjectId, ref: 'comics', required: true,
+            type: mongoose.Types.ObjectId, required: true,
             required: true,
         },
         title: {
@@ -22,4 +22,4 @@ const chapterSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-export const Chapter = mongoose.model("chapter", chapterSchema)
+export const Chapter = mongoose.model("chapters", chapterSchema)
