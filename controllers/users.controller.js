@@ -1,8 +1,8 @@
 import { User } from '../models/User.model.js'
 import bcryptjs from 'bcryptjs' //modulo para hashear la contraseña
 import crypto from 'crypto' //modulo para generar codigos aleatorios
-import jwt from 'jsonwebtoken' //modulo para utilizar los metodos de jwt
 import defaultResponse from '../config/response.js'
+import jwt from 'jsonwebtoken' //modulo para utilizar los metodos de jwt
 
 const controller = {
 
