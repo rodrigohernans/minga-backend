@@ -7,6 +7,6 @@ import validator from "../middlewares/validator.js"
 const router = express.Router()
 
 const { create } = controller
-router.post("/", comicTitleExist, validator(createSchema), create)
+router.post("/",  validator(createSchema), comicTitleExist, create)
 export default router 
 
