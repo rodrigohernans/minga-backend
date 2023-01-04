@@ -10,11 +10,7 @@ const controller = {
         response: req.body,
       })
     } catch (error) {
-      res.status(404).json({
-        success: false,
-        response: "Error al crear el comentario",
-      })
-      console.log(error)
+      next(error)
     }
   }, // Create a new comment (POST)
 }
