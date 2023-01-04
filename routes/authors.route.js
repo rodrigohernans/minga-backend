@@ -8,6 +8,6 @@ const router= express.Router()
 
 const {create} = authorController
 
-router.post("/", activeAuthor, validator(schema), create)
+router.post("/", validator(schema), activeAuthor, create)
 
 export default router
