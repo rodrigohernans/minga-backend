@@ -1,6 +1,6 @@
 import Joi from "joi-oid";
 
-const schema = Joi.object ({
+export const createSchema = Joi.object ({
     name: Joi.string().required().min(3).max(140).message({
         "any.required" : "Field required.",
         "string.empty" : "Field cannot be empty.",
@@ -14,5 +14,3 @@ const schema = Joi.object ({
     user_id: Joi.string().required(),
     active: Joi.boolean().required(),
 })
-
-export default schema
