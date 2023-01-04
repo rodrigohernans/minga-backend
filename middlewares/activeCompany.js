@@ -1,4 +1,5 @@
 import { Company } from "../models/Company.model.js";
+import defaultResponse from "../config/response.js";
 
 async function activeCompany(req, res, next) {
     const company = await Company.findOne({ active: req.body.active })
