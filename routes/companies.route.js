@@ -8,6 +8,6 @@ const router = express.Router();
 
 const { create } = controller;
 
-router.post("/", activeCompany, validator(createSchema), create);
+router.post("/", validator(createSchema), create);
 
 export default router;

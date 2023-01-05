@@ -1,7 +1,7 @@
 import Joi from "joi-oid";
 
 export const createSchema = Joi.object ({
-    name: Joi.string().required().min(3).max(140).message({
+    name: Joi.string().required().min(3).max(140).messages({
         "any.required" : "Field required.",
         "string.empty" : "Field cannot be empty.",
         "string.min" : "Field is too short.",
