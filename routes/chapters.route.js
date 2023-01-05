@@ -8,7 +8,7 @@ const router = express.Router()
 
 const {create, read} = controller
 
-router.post("/",chapterExists,validator(createSchema),create);
+router.post("/",validator(createSchema),chapterExists,create);
 router.get("/", read);
 
 
