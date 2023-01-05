@@ -2,11 +2,11 @@ import Joi from 'joi-oid'
 
 export const createSchema = Joi.object({
   text: Joi.string().required().min(1).max(200).messages({
-    'string.base': `debe ser de tipo String`,
-    'string.empty': `no puede estar vacío`,
-    'string.min': `debe tener al menos 1 caracter`,
-    'string.max': `debe tener como máximo 200 caracteres`,
-    'any.required': `es un campo requerido`,
+    'any.required': `text is a required field`,
+    'string.empty': `text cannot be an empty field`,
+    'string.min': `text must have a minimum length of {#limit}`,
+    'string.max': `text must have a maximum length of {#limit}`,
+    'string.base': `text must be a type of 'text'`
   }),
   user_id: Joi.objectId().required(),
   chapter_id: Joi.objectId().required(),
