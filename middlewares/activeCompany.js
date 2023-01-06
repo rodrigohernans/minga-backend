@@ -8,12 +8,12 @@ async function activeCompany(req, res, next) {
         }
         req.body.success = false
         req.body.sc = 400
-        req.body.data = 'You must be an active company in order to publish.'
+        req.body.data = [{message: 'You must be an active company in order to publish.'}]
         return defaultResponse(req,res)
     } else {
         req.body.success = false
         req.body.sc = 404
-        req.body.data = 'Company was not found.'
+        req.body.data = [{message: 'Company was not found.'}]
         return defaultResponse(req,res)
     }
 }
