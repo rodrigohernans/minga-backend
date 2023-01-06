@@ -1,23 +1,22 @@
-import { Chapter } from "../models/Chapter.model.js"
+import { Chapter } from '../models/Chapter.model.js'
 import defaultResponse from '../config/response.js'
 
-
-async function chapterExists(req, res, next) {
-    const chapter = await Chapter.findOne({order: req.body.order})
-    if(!chapter){
-        req.chapter = {
-            comic_id: chapter?.comic_id,
-            title: chapter?.title,
-            order: chapter?.order,
-            pages: chapter?.pages
-        }
+async function orderExists(req, res, next) {
+    let { order } = req.body
+    if (!order) {
+        let chapter = await Chapter.find() .sort({ order: '-1' }).limit(1)      
+        let nextOrder = chapter[0].order + 1 
+        req.body.order = nextOrder
         return next()
     }
-    req.success = false
-    req.body.sc = 400
-    req.body.data = 'Chapter exist!'
-    return defaultResponse(req, res)
-
+    let foundChapter = await Chapter.findOne({ order })
+    if (foundChapter) {
+        req.body.success = false
+        req.body.sc = 400
+        req.body.data = [{message: 'order exists'}]
+        return defaultResponse(req, res)
+    }
+    return next()
 }
 
-export default chapterExists
+export default orderExists
