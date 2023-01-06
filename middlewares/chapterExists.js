@@ -13,7 +13,7 @@ async function orderExists(req, res, next) {
     if (foundChapter) {
         req.body.success = false
         req.body.sc = 400
-        req.body.data = [{message: 'order exists'}]
+        req.body.data = [{message: ' ✘ ERROR: ORDER ALREADY EXISTS'}]
         return defaultResponse(req, res)
     }
     return next()
