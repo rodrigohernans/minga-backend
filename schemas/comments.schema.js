@@ -10,5 +10,5 @@ export const createSchema = Joi.object({
   }),
   user_id: Joi.objectId().required(),
   chapter_id: Joi.objectId().required(),
-  commentable_id: Joi.objectId().required(),
+  commentable_id: Joi.objectId(),
 })
