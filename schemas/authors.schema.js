@@ -8,10 +8,12 @@ const schema = Joi.object ({
         "string.max" : "Field is too long.",
         "string.base" : "Field is not a text field"
     }),
-    logo: Joi.string().required(),
-    website: Joi.string().required(),
-    description: Joi.string().required().min(10),
-    user_id: Joi.string().required(),
+    lastName: Joi.string(),
+    city: Joi.string().required(),
+    country: Joi.string().required(),
+    date: Joi.date(),
+    photo: Joi.string().uri().required(),
+    user_id: Joi.objectId().required(),
     active: Joi.boolean().required(),
 })
 
