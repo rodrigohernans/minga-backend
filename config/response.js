@@ -7,3 +7,4 @@ function defaultResponse(req,res) {
     })
 }
 export default defaultResponse
+

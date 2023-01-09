@@ -10,3 +10,4 @@ const comicSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 export const Comic = mongoose.model('comics', comicSchema)
+
