@@ -4,6 +4,7 @@ import categories from "./categories.route.js";
 import companies from "./companies.route.js";
 import comments from "./comments.route.js"
 import users from "./users.route.js"
+import authors from "./authors.route.js"
 import chapters from "./chapters.route.js"
 const router = express.Router()
 
@@ -15,6 +16,7 @@ router.get("/", function (req, res, next) {
 router.use("/companies", companies);
 router.use("/auth", users)
 router.use("/categories", categories)
+router.use("/authors", authors)
 router.use("/chapters", chapters)
 router.use('/comics', comics) //se usa esta ruta 
 router.use("/comments", comments)
