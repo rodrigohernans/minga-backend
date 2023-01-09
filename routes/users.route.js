@@ -16,15 +16,15 @@ const { signup, signin, signintoken, signout, read } = controller
 router.post("/signup", accountExistsSignUp, validator(schema), signup)
 router.post("/signin", accountExistsSignIn, accountHasBeenVerified, signin)
 router.post(
-  "/token",
-  passport.authenticate("jwt", { session: false }),
-  mustSignIn,
-  signintoken
+    "/token",
+    passport.authenticate("jwt", { session: false }),
+    mustSignIn,
+    signintoken
 )
 router.put(
-  "/signout",
-  passport.authenticate("jwt", { session: false }),
-  signout
+    "/signout",
+    passport.authenticate("jwt", { session: false }),
+    signout
 )
 router.get("/", read)
 

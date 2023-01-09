@@ -1,28 +1,26 @@
-import Joi from "joi-oid";
+import Joi from "joi-oid"
 
-export const createSchema = Joi.object ({
+export const createSchema = Joi.object({
     name: Joi.string().required().min(3).max(140).messages({
-        "any.required" : "Name field is required!",
-        "string.empty" : "Name field cannot be empty!",
-        "string.min" : "Name field is too short! {#limit} characters minimum.",
-        "string.max" : "Name field is too long! {#limit} characters maximum.",
-        "string.base" : "Name field must include text!"
+        "any.required": "Name is a required field.",
+        "string.empty": "Name cannot be an empty field.",
+        "string.min": "Name must have a minimum length of {#limit}",
+        "string.max": "Name must have a maximum length of {#limit}",
+        "string.base": "Name must be a type of 'text'",
     }),
     logo: Joi.string().required().messages({
-        "any.required" : "Logo field is required!",
-        "string.empty" : "Logo field cannot be empty!",
-        "string.base" : "Logo field must include text!"
+        "any.required": "Logo is a required field.",
+        "string.empty": "Logo cannot be an empty field.",
     }),
     website: Joi.string().required().messages({
-        "any.required" : "Website field is required!",
-        "string.empty" : "Website field cannot be empty!",
-        "string.base" : "Website field must include text!"
+        "any.required": "Website is a required field.",
+        "string.empty": "Website cannot be an empty field.",
     }),
     description: Joi.string().required().min(10).message({
-        "any.required" : "Description is required!",
-        "string.empty" : "Description cannot be empty!",
-        "string.min" : "Description is too short! {#limit} characters minimum.",
-        "string.base" : "Description must include text!"
+        "any.required": "Description is a required field.",
+        "string.empty": "Description cannot be an empty field.",
+        "string.min": "Description must have a minimum length of {#limit}",
+        "string.base": "Description must be a type of 'text'",
     }),
     user_id: Joi.string().required(),
     active: Joi.boolean().required(),

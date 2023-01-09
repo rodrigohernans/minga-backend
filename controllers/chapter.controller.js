@@ -29,6 +29,6 @@ const controller = {
                 response: "Error al obtener el chapter",
             })
         }
-    }
+    },
 }
 export default controller
