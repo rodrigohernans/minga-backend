@@ -14,4 +14,4 @@ router.use("/auth", users)
 router.use("/categories", categories)
 router.use('/comics', comics) //se usa esta ruta 
 
-export default router 
+export default router  

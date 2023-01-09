@@ -8,16 +8,16 @@ let comics = [
 
         author_id: "63b31c350bddc55d435910d7",
         company_id: "63b31c350bddc55d435910d7" ,
-        title: "priemertitulo",
+        title: "firstName",
         photo: "foto.png",
         description: "primerdescription" ,
         category: "63b31c350bddc55d435910d7",
     },
-    {
+    { 
 
         author_id: "63b31c350bddc55d435910d7",
         company_id: "63b31c350bddc55d435910d7" ,
-        title: "priemertitulo",
+        title: "secondName",
         photo: "foto.png",
         description: "primerdescription" ,
         category: "63b31c350bddc55d435910d7",
