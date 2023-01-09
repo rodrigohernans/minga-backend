@@ -5,7 +5,7 @@ async function comicTitleExist(req, res, next) {
     if (comic) {
         return res.status(400).json({
             success: false,
-            response: [ { message: 'The comic already exist, try another name'} ] 
+            response: [ { message: 'The comic already exists, try another name'} ] 
         })
     }
     return next()
