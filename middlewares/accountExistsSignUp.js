@@ -12,4 +12,4 @@ async function accountExistsSignUp(req,res,next) {
     return next() //continuo con el middleware o metodo programado en la ruta
 }
 
-export default accountExistsSignUp
+export default accountExistsSignUp 

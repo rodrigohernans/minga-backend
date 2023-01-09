@@ -1,6 +1,7 @@
+import express from "express";
+import comics from './comics.route.js'
 import categories from "./categories.route.js";
 import companies from "./companies.route.js";
-import express from "express";
 import comments from "./comments.route.js"
 import users from "./users.route.js"
 
@@ -14,6 +15,7 @@ router.get("/", function (req, res, next) {
 router.use("/companies", companies);
 router.use("/auth", users)
 router.use("/categories", categories)
+router.use('/comics', comics) //se usa esta ruta 
 router.use("/comments", comments)
 
 export default router;
