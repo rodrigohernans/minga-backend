@@ -18,4 +18,4 @@ async function activeCompany(req, res, next) {
     }
 }
 
-export default activeCompany; 
+export default activeCompany;
