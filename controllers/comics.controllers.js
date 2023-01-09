@@ -12,6 +12,43 @@ const controller = {
             next(error)
         }
     },
+    get_comics: async (req, res, next) => {
+        let consultas = {}
+        let ordenamiento = {
+            title: 1
+        }
+        let paginacion = {
+            page: 1,
+            limit: 10
+        }
+        if (req.query.title) {
+            consultas.title = { $regex: req.query.title.trim(), $options: "i" }
+        }
+        if (req.query.category) {
+            consultas.category = req.query.category
+        }
+        if (req.query.sort) {
+            ordenamiento = req.query.sort
+        }
+        if (req.query.page) {
+            paginacion.page = req.query.page
+        }
+        if (req.query.limit) {
+            paginacion.limit = req.query.limit
+        }
+        try {
+            const comics = await Comic.find(consultas)
+                .sort(ordenamiento)
+                .skip((paginacion.page - 1) * paginacion.limit)
+                .limit(paginacion.limit)
+            res.status(200).json({
+                success: true,
+                response: comics,
+            })
+        } catch (error) {
+            next(error)
+        }
+    },
 }
 
 export default controller

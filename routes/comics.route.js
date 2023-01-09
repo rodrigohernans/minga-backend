@@ -8,8 +8,10 @@ import validator from "../middlewares/validator.js"
 
 const router = express.Router()
 
-const { create } = controller
+const { create, get_comics } = controller
 
-router.post("/", comicTitleExists, activeAuthor, activeCompany, validator(createSchema), create)
+router.post("/", comicTitleExists, validator(createSchema), create)
+
+router.get("/", get_comics)
 
 export default router

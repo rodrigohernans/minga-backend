@@ -10,9 +10,11 @@ export const createSchema = Joi.object({
         "string.max": "Title must have a maximum length of {#limit}",
         "string.base": "Title must be a type of 'text'",
     }),
-    photo: Joi.string().required().messages({
+    photo: Joi.string().uri().required().messages({
         "any.required": "Photo is a required field",
         "string.empty": "Photo cannot be an empty field",
+        "string.uri": "Photo must be a valid URL",
+        "string.base": "Photo must be a type of 'text'",
     }),
     description: Joi.string().required().min(3).max(200).messages({
         "any.required": "Description is a required field",
