@@ -8,11 +8,10 @@ const controller = {
                 success: true,
                 response: req.body,
             })
-        } catch(error) {
-                next(error) 
-            }
+        } catch (error) {
+            next(error)
         }
-    }
+    },
+}
 
-
-export default controller 
+export default controller

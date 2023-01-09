@@ -3,6 +3,6 @@ export const notFoundHandler = (req, res, next) => {
         success: false,
         method: req.method,
         path: req.url,
-        response: 'not found'
+        response: "not found",
     })
 }

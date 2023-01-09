@@ -10,5 +10,4 @@ const { create } = controller
 // POST create a comment
 router.post("/", validator(createSchema), create)
 
-
 export default router

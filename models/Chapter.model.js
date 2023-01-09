@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const chapterSchema = new mongoose.Schema(
     {
         comic_id: {
-            type: mongoose.Types.ObjectId, required: true,
+            type: mongoose.Types.ObjectId,
             required: true,
         },
         title: {
@@ -17,7 +17,7 @@ const chapterSchema = new mongoose.Schema(
         order: {
             type: Number,
             required: false,
-        }
+        },
     },
     { timestamps: true }
 )

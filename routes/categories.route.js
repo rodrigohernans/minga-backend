@@ -6,7 +6,7 @@ const router = express.Router()
 const { read, one, create, update, destroy } = controller
 
 // POST create a category
-router.post("/",create)
+router.post("/", create)
 
 // GET all categories
 router.get("/", read)
@@ -19,6 +19,5 @@ router.put("/:category_id", update)
 
 // DELETE delete a category
 router.delete("/:category_id", destroy)
-
 
 export default router
