@@ -31,9 +31,9 @@ let companies = [
 ]
 
 Company.insertMany(companies)
-    .then((categories) => {
-        console.log("categories created", categories)
-    })
-    .catch((error) => {
-        console.log(error)
-    })
+  .then((categories) => {
+    console.log("categories created", categories)
+  })
+  .catch((error) => {
+    console.log(error)
+  })
