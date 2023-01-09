@@ -11,4 +11,4 @@ const authorSchema = new mongoose.Schema({
     active: {type: Boolean, require: true}
 }, {timestamps: true})
 
-export const Author = mongoose.model('authors', authorSchema)
+export const Author = mongoose.model('authors', authorSchema) 
