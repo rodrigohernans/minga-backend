@@ -1,15 +1,17 @@
 import 'dotenv/config.js'
-import '../../../minga-back/config/database.js'
-import { user1,user2,user3,user4,user5,user6,user7,user8,user9,user10 } from './users.js'
-import { author1,author2,author3,author4,author5,author6 } from './authors.js'
-import { company1,company2,company3,company4 } from './companies.js'
-import { categories } from './categories.js'
-import { comic1,comic2,comic3,comic4,comic5,comic6,comic7,comic8,comic9,comic10,comic11,comic12,comic13,comic14,comic15,comic16,comic17,comic18,comic19,comic20,comic21,comic22,comic23,comic24,comic25,comic26,comic27,comic28,comic29,comic30,comic31,comic32,comic33 } from './comics.js'
-import { User } from '../User.model.js'
+import '../../config/database.js'
+
+import { author1, author2, author3, author4, author5, author6 } from './authors.js'
+import { comic1, comic10, comic11, comic12, comic13, comic14, comic15, comic16, comic17, comic18, comic19, comic2, comic20, comic21, comic22, comic23, comic24, comic25, comic26, comic27, comic28, comic29, comic3, comic30, comic31, comic32, comic33, comic4, comic5, comic6, comic7, comic8, comic9 } from './comics.js'
+import { company1, company2, company3, company4 } from './companies.js'
+import { user1, user10, user2, user3, user4, user5, user6, user7, user8, user9 } from './users.js'
+
 import { Author } from '../Author.model.js'
-import { Company } from '../Company.model.js'
 import { Category } from '../Category.model.js'
 import { Comic } from '../Comic.models.js'
+import { Company } from '../Company.model.js'
+import { User } from '../User.model.js'
+import { categories } from './categories.js'
 
 let newDoc = async(user,model,dataModel) => {
     let newUser = await User.create(user)
