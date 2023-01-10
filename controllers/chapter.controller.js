@@ -14,40 +14,32 @@ const controller = {
   },
   get_pages: async (req, res, next) => {
     let consultas = {}
-    let ordenamiento = {
-        title: 1
+    if (req.query.comic_id) {
+      consultas.comic_id = req.query.comic_id 
     }
-    let paginacion = {
-        page: 1,
-        limit: 10
-    }
-    if (req.query.title) {
-        consultas.title = { $regex: req.query.title.trim(), $options: "i" }
-    }
-    if (req.query.category) {
-        consultas.category = req.query.category
-    }
-    if (req.query.sort) {
-        ordenamiento = req.query.sort
-    }
-    if (req.query.page) {
-        paginacion.page = req.query.page
-    }
-    if (req.query.limit) {
-        paginacion.limit = req.query.limit
+    if (req.query.order) {
+      consultas.order = req.query.order
     }
     try {
-        const chapters = await Chapter.find(consultas)
-            .sort(ordenamiento)
-            .skip((paginacion.page - 1) * paginacion.limit)
-            .limit(paginacion.limit)
-        res.status(200).json({
-            success: true,
-            response: chapters,
-        })
+      const comic = await Chapter.find(consultas)
+      console.log(comic)
+      res.status(200).json({
+        success: true,
+        response: comic
+      })
+    }catch (error) {
+      next(error)
+    }
+/*     try {
+      const {id, order} = req.params 
+      const comic = await Chapter.find({comic_id: id, order: order})
+      console.log(comic)
+      res.status(200).json({
+        success: true,
+        response: comic})
     } catch (error) {
         next(error)
-    }
+    } */
 },
 }
 
