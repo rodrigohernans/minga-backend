@@ -1,25 +1,45 @@
-import "dotenv/config.js"
-import "../../config/database.js"
-
-import { Author } from "../Author.model.js"
-
-let authors = [
-    {
-        name: "pepito",
-        last_name: "perez",
-        city: "Buenos Aires",
-        country: "Argentina",
-        date: "2020-12-3",
-        photo: "sin foto",
-        user_id: "63b31c4cc853e7a4ea643fbc",
-        active: true
-    }
-]
-
-Author.insertMany(authors)
-    .then((authors) => {
-        console.log("authors created", authors)
-    })
-    .catch((error) => {
-        console.log(error)
-    })
+export let author1 = {
+    name: "alejandro",
+    city: "buenos aires",
+    country: "argentina",
+    photo: "https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg",
+    active: true
+}
+export let author2 = {
+    name: "lucas",
+    last_name: "silva",
+    city: "buenos aires",
+    country: "argentina",
+    photo: "https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg",
+    active: true
+}
+export let author3 = {
+    name: "jose",
+    last_name: "lopez",
+    city: "villa carlos paz",
+    country: "argentina",
+    photo: "https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg",
+    active: true
+}
+export let author4 = {
+    name: "eric",
+    city: "resistencia",
+    country: "argentina",
+    photo: "https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg",
+    active: true
+}
+export let author5 = {
+    name: "igna",
+    last_name: "borraz",
+    city: "rosario",
+    country: "argentina",
+    photo: "https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg",
+    active: true
+}
+export let author6 = {
+    name: "silvina",
+    city: "buenos aires",
+    country: "argentina",
+    photo: "https://conceptodefinicion.de/wp-content/uploads/2016/01/Perfil2.jpg",
+    active: true
+}

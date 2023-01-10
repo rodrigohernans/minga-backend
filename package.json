@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "data": "node ./models/data/data.js",
+    "chapters": "node ./models/data/oneComic.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
