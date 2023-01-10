@@ -5,6 +5,7 @@ const chapterSchema = new mongoose.Schema(
         comic_id: {
             type: mongoose.Types.ObjectId, required: true,
             required: true,
+            ref: "comics"
         },
         title: {
             type: String,
