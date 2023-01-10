@@ -1,4 +1,4 @@
-import { Comic } from "../models/Comic.models.js"
+import { Comic } from "../models/Comic.model.js"
 
 const controller = {
     create: async (req, res, next) => {
@@ -15,7 +15,7 @@ const controller = {
     get_comics: async (req, res, next) => {
         let consultas = {}
         let ordenamiento = {
-            title: 1
+            title: 1,
         }
         let paginacion = {
             page: 1,
@@ -24,8 +24,8 @@ const controller = {
         if (req.query.title) {
             consultas.title = { $regex: req.query.title.trim(), $options: "i" }
         }
-        if (req.query.category) {
-            consultas.category = req.query.category
+        if (req.query.category_id) {
+            consultas.category_id = req.query.category_id
         }
         if (req.query.sort) {
             ordenamiento = req.query.sort
