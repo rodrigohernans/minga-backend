@@ -30,16 +30,6 @@ const controller = {
     }catch (error) {
       next(error)
     }
-/*     try {
-      const {id, order} = req.params 
-      const comic = await Chapter.find({comic_id: id, order: order})
-      console.log(comic)
-      res.status(200).json({
-        success: true,
-        response: comic})
-    } catch (error) {
-        next(error)
-    } */
 },
 }
 
