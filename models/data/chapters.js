@@ -1,5 +1,6 @@
 export let chapters = [
     {
+        comic_title: "pokemon adventure",
         title: "una vision de luz",
         pages: [
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__001/pokemon__001-02.png",
@@ -213,6 +214,7 @@ export let chapters = [
         ],
         order: 11
     },{
+        comic_title: "pokemon adventure",
         title: "despierta! eres snorlax!",
         pages: [
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__012/pokemon__012-01.png",
@@ -232,6 +234,7 @@ export let chapters = [
         ],
         order: 12
     },{
+        comic_title: "pokemon adventure",
         title: "atrapado entre fantasmas",
         pages: [
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__013/pokemon__013-01.png",
@@ -251,6 +254,7 @@ export let chapters = [
         ],
         order: 13
     },{
+        comic_title: "pokemon adventure",
         title: "un horrible arbok",
         pages: [
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__014/pokemon__014-01.png",

@@ -8,7 +8,7 @@ import { user1, user10, user2, user3, user4, user5, user6, user7, user8, user9 }
 
 import { Author } from '../Author.model.js'
 import { Category } from '../Category.model.js'
-import { Comic } from '../Comic.models.js'
+import { Comic } from '../Comic.model.js'
 import { Company } from '../Company.model.js'
 import { User } from '../User.model.js'
 import { categories } from './categories.js'
