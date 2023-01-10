@@ -1,4 +1,4 @@
-import { Comic } from "../models/Comic.models.js"
+import { Comic } from "../models/Comic.model.js"
 
 const controller = {
     create: async (req, res, next) => {

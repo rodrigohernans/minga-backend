@@ -1,4 +1,4 @@
-import { Comic } from "../models/Comic.models.js"
+import { Comic } from "../models/Comic.model.js"
 
 async function comicTitleExist(req, res, next) {
     const comic = await Comic.findOne({ title: req.body.title })

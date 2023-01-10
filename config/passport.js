@@ -20,6 +20,9 @@ passport.use(
                         //aqui es donde protejo los datos del usuario
                         mail: user.mail,
                         photo: user.photo,
+                        is_admin: user.is_admin,
+                        is_author: user.is_author,
+                        is_company: user.is_company
                     }
                     return done(null, user)
                 } else {
