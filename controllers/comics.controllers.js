@@ -12,7 +12,7 @@ const controller = {
             next(error)
         }
     },
-    get_comics_from_cia: async (req, res, netx) => {
+    get_comics_from_cia: async (req, res, next) => {
         let filterByProfile = {}
         let orderByDate = {}
         let pagination = {
@@ -40,7 +40,7 @@ const controller = {
                 response: comics,
             })
         } catch(error) {
-            netx(error)
+            next(error)
         }
     }
 }
