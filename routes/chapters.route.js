@@ -11,6 +11,6 @@ const { create, get_pages } = controller
 
 router.post("/", validator(createSchema), orderExists, comicTitleExist, create)
 
-router.get("/", get_pages)
+router.get("/:_id", get_pages)
 
 export default router

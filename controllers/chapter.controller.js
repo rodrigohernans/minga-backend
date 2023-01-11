@@ -13,15 +13,9 @@ const controller = {
     }
   },
   get_pages: async (req, res, next) => {
-    let consultas = {}
-    if (req.query.comic_id) {
-      consultas.comic_id = req.query.comic_id 
-    }
-    if (req.query.order) {
-      consultas.order = req.query.order
-    }
+    const { _id } = req.params
     try {
-      const comic = await Chapter.find(consultas)
+      const comic = await Chapter.findById(_id)
       console.log(comic)
       res.status(200).json({
         success: true,
