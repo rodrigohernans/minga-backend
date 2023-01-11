@@ -37,7 +37,7 @@ const controller = {
             paginacion.limit = req.query.limit
         }
         try {
-            const comics = await Comic.find(consultas)
+            const comics = await Comic.find(consultas, "-__v -_id -category_id -author_id -company_id")
                 .sort(ordenamiento)
                 .skip((paginacion.page - 1) * paginacion.limit)
                 .limit(paginacion.limit)
