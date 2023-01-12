@@ -41,10 +41,18 @@ const controller = {
                 .sort(ordenamiento)
                 .skip((paginacion.page - 1) * paginacion.limit)
                 .limit(paginacion.limit)
-            res.status(200).json({
-                success: true,
-                response: comics,
-            })
+            if (comics.length === 0) {
+                res.status(404).json({
+                    success: false,
+                    response: comics,
+                    message: "No comics found matching the filters"
+                })
+            } else {
+                res.status(200).json({
+                    success: true,
+                    response: comics,
+                })
+            }
         } catch (error) {
             next(error)
         }
