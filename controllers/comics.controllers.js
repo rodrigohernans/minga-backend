@@ -14,76 +14,34 @@ const controller = {
         }
     },
     get_comics_from_author: async (req, res, next) => {
-        let filterId = {
-            author_id: req.params.author_id,
-            author: req.params.author
-        }
-        let ordenamiento = {}
-        let pagination ={
-            limit: 4,
-            page: 1
-        }
-        let newComics = true;
-
-        if(req.query.new){
-            if(req.query.new === undefined || req.query.new === 'true'){
-            newComics = true;
-            }else{
-                newComics = false;
-            }
-        }
-
-        if (!mongoose.Types.ObjectId.isValid(req.params.author_id)) {
-            return res.status(400).json({ success: false, response: "Invalid author id format" });
-        }
-
-        if (req.query.page) {
-            if (isNaN(req.query.page) || req.query.page < 1) {
-              return res.status(400).json({ success: false, response: "Invalid page value" });
-            }
-            pagination.page = parseInt(req.query.page)
-          }
-          
-        if(req.params.author_id){
-            filterId.author_id = req.params.author_id
-        }
-
-        if(req.query.author_id){
-            filterId.author_id = req.query.author_id
-        }
-
-        if(newComics){
-            pagination.limit = Math.floor(pagination.limit / 2)
-            ordenamiento = {createdAt: -1}
-        } else {
-            ordenamiento = {createdAt: 1}
-            let count = await Comic.countDocuments(filterId);
-            let middle = Math.floor(count/2);
-            pagination.limit = Math.floor(pagination.limit / 2)
-            pagination.skip = middle
-        }
-
-        if(req.query.sortBy){
-            ordenamiento = {createdAt: parseInt(req.query.sortBy) }
-        } else {
-            ordenamiento = {createdAt: 1}
-        }
-
         try {
-            let comics = await Comic.find(filterId, -_id -author_id -company_id -category_id )
-            .sort(ordenamiento)
-            .skip(pagination.skip)
-            .limit(pagination.limit)
-
-            if(comics.length < 4) {
-                pagination.limit
-             }
-            
-            res.status(200).json({
+            const query = {}
+    
+            const order = {
+                    createdAt: 'desc'
+                }
+    
+            let comicsLength = 0;
+    
+            if (req.query.author_id) {
+                query.author_id = req.query.author_id
+                const comicsPerAuthor = await Comic.countDocuments({ author_id: req.query.author_id });
+                comicsLength = comicsPerAuthor
+                console.log(comicsLength)
+            }
+    
+            if (req.query.new === 'false') {
+                order.createdAt = 'asc'
+            }
+    
+            const comics = await Comic.find(query)
+                    .sort(order)
+                    .limit(comicsLength < 4 ? 0 : Math.round(comicsLength / 2))
+            res.status(201).json({
                 success: true,
                 response: comics,
             })
-        } catch(error) {
+        } catch (error) {
             next(error)
         }
     }

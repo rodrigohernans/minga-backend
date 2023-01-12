@@ -12,6 +12,6 @@ const { create, get_comics_from_author} = controller
 
 router.post("/", comicTitleExists, activeAuthor, activeCompany, validator(createSchema), create)
 
-router.get("/", get_comics_from_author)
+router.get("/profile/author", get_comics_from_author)
 
 export default router

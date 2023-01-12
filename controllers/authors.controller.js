@@ -16,7 +16,7 @@ const authorController = {
     get_author: async (req, res, next) => {
         try {
           const { id } = req.params;
-          let author = await Author.findById(id);
+          let author = await Author.findById(id).select('-.*_id');
           if (author) {
             res.status(200).json({
               success: true,
