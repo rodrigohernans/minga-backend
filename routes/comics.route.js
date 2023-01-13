@@ -11,6 +11,6 @@ const router = express.Router()
 const { create, get_comics_from_cia } = controller
 
 router.post("/", comicTitleExists, activeAuthor, activeCompany, validator(createSchema), create)
-router.get("/", get_comics_from_cia)
+router.get("/profile/company/", get_comics_from_cia)
 
 export default router
