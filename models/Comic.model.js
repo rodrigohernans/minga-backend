@@ -7,7 +7,7 @@ const comicSchema = new mongoose.Schema(
         title: { type: String, required: true },
         photo: { type: String, required: true },
         description: { type: String, required: true },
-        category: { type: mongoose.Schema.Types.ObjectId, required: true },
+        category_id: { type: mongoose.Schema.Types.ObjectId, required: true },
     },
     { timestamps: true }
 )
