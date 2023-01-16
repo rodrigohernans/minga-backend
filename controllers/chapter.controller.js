@@ -30,7 +30,7 @@ const controller = {
   },
   get_comic_chapters: async (req, res, next) => {
     let consultas = {};
-    let ordenamiento = {};
+    let ordenamiento = {order: 1};
     let paginacion = {
       page: 1,
       limit: 5,
