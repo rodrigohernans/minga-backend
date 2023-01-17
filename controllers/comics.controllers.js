@@ -1,5 +1,4 @@
 import { Comic } from "../models/Comic.models.js"
-import mongoose from 'mongoose'
 
 const controller = {
     create: async (req, res, next) => {

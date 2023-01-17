@@ -11,7 +11,7 @@ let authors = [
         country: "Argentina",
         date: "2020-12-3",
         photo: "sin foto",
-        user_id: "63b31c4cc853e7a4ea643fbc",
+        author_id: "63b31c4cc853e7a4ea643fbc",
         active: true
     }
 ]
