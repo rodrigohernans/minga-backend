@@ -20,12 +20,12 @@ const controller = {
 
     get_comic_chapters: async (req, res, next) => {
         let consultas = {}
-        let ordenamiento = { order: "asc" }
+        let ordenamiento = { order: "asc" } 
         let paginacion = {
             page: 1,
             limit: 5
         }
-        if (req.query.comic_id) {
+        if (req.query.comic_id) { 
             consultas.comic_id = req.query.comic_id
         }
         if (req.query.page) {
@@ -36,7 +36,7 @@ const controller = {
         }
         if (req.query.sort) {
             ordenamiento = { order: req.query.sort }
-        }
+        } 
         try {
             const chapters = await Chapter.find(consultas)
                 .sort(ordenamiento)

@@ -1,3 +1,5 @@
+import { Author } from "../models/Author.model.js"
+import { Category } from "../models/Category.model.js"
 import { Comic } from "../models/Comic.models.js"
 
 const controller = {
@@ -11,12 +13,14 @@ const controller = {
     } catch (error) {
       next(error)
     }
-  },
+  }, 
   get_comic: async (req, res, next) => {
     try {
       const { id } = req.params
-      let comic = await Comic.findById(id, '-author_id -_id -company_id -category')
-      if (comic) {
+      let comic = await Comic.findById(id, '-_id -company_id -category')
+      .populate({path: "author_id", select: 'name -_id'})
+      .populate({path: "category_id", select: 'name -_id'})
+      if (comic) { 
         res.status(200).json({
           success: true,
           response: comic

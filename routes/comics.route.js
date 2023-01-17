@@ -11,6 +11,6 @@ const router = express.Router()
 
 const { create, get_comic} = controller
 router.post("/" ,comicTitleExist, validator(createSchema),create)
-router.get('/:id', get_comic )  
+router.get('/:id', get_comic ) 
 export default router
 
