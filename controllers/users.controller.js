@@ -1,27 +1,26 @@
 import { User } from "../models/User.model.js"
-import bcryptjs from "bcryptjs" //modulo para hashear la contraseña
-import crypto from "crypto" //modulo para generar codigos aleatorios
+import bcryptjs from "bcryptjs" 
+import crypto from "crypto" 
 import defaultResponse from "../config/response.js"
-import jwt from "jsonwebtoken" //modulo para utilizar los metodos de jwt
+import jwt from "jsonwebtoken" 
 
 const controller = {
     signup: async (req, res, next) => {
-        req.body.is_online = false //agrego las propiedades que el cliente NO envió
+        req.body.is_online = false 
         req.body.is_admin = false
         req.body.is_author = false
         req.body.is_company = false
-        req.body.is_verified = true //por ahora en true
-        req.body.verify_code = crypto.randomBytes(10).toString("hex") //defino el codigo de verificacion por mail
-        req.body.password = bcryptjs.hashSync(req.body.password, 10) //encripto o hasheo la contraseña
+        req.body.is_verified = true 
+        req.body.verify_code = crypto.randomBytes(10).toString("hex")
+        req.body.password = bcryptjs.hashSync(req.body.password, 10)
         try {
-            //await accountVerificationEmail(req,res) //envío mail de verificación (SPRINT-4)
-            await User.create(req.body) //crea el usuario
+            await User.create(req.body)
             req.body.success = true
-            req.body.sc = 201 //agrego el codigo de estado
-            req.body.data = "user created" //agrego el mensaje o información que necesito enviarle al cliente
-            return defaultResponse(req, res) //retorno la respuesta default
+            req.body.sc = 201 
+            req.body.data = "user created" 
+            return defaultResponse(req, res) 
         } catch (error) {
-            next(error) //respuesta del manejador de errores
+            next(error) 
         }
     },
 
@@ -29,23 +28,20 @@ const controller = {
         let { password } = req.body
         let { user } = req
         try {
-            const verified = bcryptjs.compareSync(password, user.password) //comparo contraseña
+            const verified = bcryptjs.compareSync(password, user.password) 
             if (verified) {
                 await User.findOneAndUpdate(
-                    //busco y actualizo
-                    { mail: user.mail }, //parametro de busqueda
-                    { is_online: true }, //parametro a modificar
-                    { new: true } //especificacion que reemplace el documento de origen
+                    { mail: user.mail }, 
+                    { is_online: true }, 
+                    { new: true } 
                 )
                 let token = jwt.sign(
-                    //creo la firma de jwt
-                    { id: user.id }, //parametro a convertir en token
-                    process.env.KEY_JWT, //parámetro secreto, necesario para la conversion
-                    { expiresIn: 60 * 60 * 24 } //tiempo de expiracion en segundos
+                    { id: user.id }, 
+                    process.env.KEY_JWT, 
+                    { expiresIn: 60 * 60 * 24 } 
                 )
-                //console.log(token)
+
                 user = {
-                    //protejo mas datos sensibles
                     mail: user.mail,
                     photo: user.photo,
                 }
@@ -59,7 +55,7 @@ const controller = {
             req.body.data = "invalid credentials"
             return defaultResponse(req, res)
         } catch (error) {
-            next(error) //respuesta del catch
+            next(error) 
         }
     },
 
@@ -78,11 +74,10 @@ const controller = {
     signout: async (req, res, next) => {
         const { mail } = req.user
         try {
-            //si tiene éxito debe cambiar online de true a false
             await User.findOneAndUpdate(
-                { mail }, //parametro de busqueda
-                { is_online: false }, //parametro a modificar
-                { new: true } //especificacion que reemplace el documento de origen
+                { mail }, 
+                { is_online: false },
+                { new: true } 
             )
             req.body.success = true
             req.body.sc = 200

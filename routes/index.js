@@ -8,7 +8,6 @@ import express from "express"
 import users from "./users.route.js"
 const router = express.Router()
 
-/* GET home page. */
 router.get("/", function (req, res, next) {
     res.send("minga server ready")
 })
@@ -18,7 +17,7 @@ router.use("/auth", users)
 router.use("/categories", categories)
 router.use("/authors", authors)
 router.use("/chapters", chapters)
-router.use("/comics", comics) //se usa esta ruta
+router.use("/comics", comics)
 router.use("/comments", comments)
 
 export default router
