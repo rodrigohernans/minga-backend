@@ -16,15 +16,7 @@ export let chapters = [
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__001/pokemon__001-12.png",
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__001/pokemon__001-13.png",
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__001/pokemon__001-14.png",
-            "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__001/pokemon__001-15.png",
-            "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__001/pokemon__001-16.png"
-        ],
-        order: 1
-    },{
-        title: "bulbasaur, vuelve a casa!",
-        pages: [
-            "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__002/pokemon__002-01.png",
-            "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__002/pokemon__002-02.png",
+            "https:/chapters: [/storage.googleapis.com/minga/mangas/pokemon/pokemon__002/pokemon__002-02.png",
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__002/pokemon__002-03.png",
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__002/pokemon__002-04.png",
             "https://storage.googleapis.com/minga/mangas/pokemon/pokemon__002/pokemon__002-05.png",

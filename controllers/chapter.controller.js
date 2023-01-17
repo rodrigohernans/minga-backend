@@ -1,4 +1,4 @@
-import { Chapter } from "../models/Chapter.model.js"
+import { Chapter } from "../models/Chapter.model.js";
 
 const controller = {
     create: async (req, res) => {
@@ -12,9 +12,25 @@ const controller = {
             next(error)
         }
     },
+    get_pages: async (req, res, next) => {
+      const { _id } = req.params;
+      try {
+        const comic = await Chapter.findById(_id);
+        console.log(comic);
+        res.status(200).json({
+          success: true,
+          response: comic,
+        });
+      } catch (error) {
+        res.status(404).json({
+          success: false,
+          response: "Error Obtaining Chapter",
+        });
+      }
+    },
     get_comic_chapters: async (req, res, next) => {
         let consultas = {}
-        let ordenamiento = { order: "asc" }
+        let ordenamiento = { order: 1 }
         let paginacion = {
             page: 1,
             limit: 5,

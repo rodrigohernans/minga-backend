@@ -7,10 +7,11 @@ import validator from "../middlewares/validator.js"
 
 const router = express.Router()
 
-const { create, get_comic_chapters } = controller
+const { create, get_pages, get_comic_chapters } = controller
 
 router.post("/", validator(createSchema), orderExists, comicTitleExists, create)
 
+router.get("/:_id", get_pages)
 router.get("/", get_comic_chapters)
 
 export default router
