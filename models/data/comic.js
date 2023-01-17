@@ -7,7 +7,7 @@ let comics = [
     {
 
         author_id: "63b31c350bddc55d435910d7",
-        company_id: "63b31c350bddc55d435910d7" ,
+        company_id: "63b31c350bddc55d435910d7",
         title: "firstName",
         photo: "foto.png",
         description: "primerdescription" ,

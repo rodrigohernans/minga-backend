@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
+
 mongoose.set('strictQuery', false)
-mongoose.connect(process.env.MONGO_URI) //MONGO_URI es la uri de conexión
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('database connected'))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err)) 

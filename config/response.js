@@ -6,5 +6,5 @@ function defaultResponse(req,res) {
         response: req.body.data
     })
 }
-export default defaultResponse
+export default defaultResponse 
 
