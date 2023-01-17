@@ -18,7 +18,7 @@ router.use("/auth", users)
 router.use("/categories", categories)
 router.use("/authors", authors)
 router.use("/chapters", chapters)
-router.use("/comics", comics) //se usa esta ruta
+router.use("/comics", comics)
 router.use("/comments", comments)
 
 export default router
