@@ -9,7 +9,6 @@ import schema from "../schemas/signup.schema.js"
 import validator from "../middlewares/validator.js"
 
 let router = express.Router()
-// import schema from '../schemas/auth.schema.js'
 
 const { signup, signin, signintoken, signout, read } = controller
 
