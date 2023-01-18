@@ -9,13 +9,27 @@ import validator from "../middlewares/validator.js"
 
 const router = express.Router()
 
-const { create, get_comics, get_comic, get_comics_from_cia, get_comics_from_author } = controller
+const {
+    create,
+    get_comics,
+    get_comic,
+    get_comics_from_cia,
+    get_comics_from_author,
+} = controller
 
 router.post("/", comicTitleExists, validator(createSchema), create)
 
-router.get('/:id', get_comic)
-router.get("/",passport.authenticate('jwt', { session: false }), get_comics)
-router.get("/profile/company/", get_comics_from_cia)
-router.get("/profile/author", get_comics_from_author)
+router.get("/:id", passport.authenticate("jwt", { session: false }), get_comic)
+router.get("/", passport.authenticate("jwt", { session: false }), get_comics)
+router.get(
+    "/profile/company/",
+    passport.authenticate("jwt", { session: false }),
+    get_comics_from_cia
+)
+router.get(
+    "/profile/author",
+    passport.authenticate("jwt", { session: false }),
+    get_comics_from_author
+)
 
 export default router
