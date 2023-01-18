@@ -6,8 +6,9 @@ import validator from "../middlewares/validator.js"
 
 const router = express.Router()
 
-const { create } = controller
+const { create, get_company } = controller
 
 router.post("/", validator(createSchema), create)
+router.get("/:id", get_company)
 
 export default router
