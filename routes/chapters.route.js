@@ -8,11 +8,11 @@ import validator from "../middlewares/validator.js"
 
 const router = express.Router()
 
-const { create, get_pages, get_comic_chapters } = controller
+const { create, get_pages, get_comic_chapters, update } = controller
 
 router.post("/", passport.authenticate("jwt", { session: false }), validator(createSchema), orderExists, comicTitleExists, create)
 
 router.get("/:_id", passport.authenticate("jwt", { session: false }), get_pages)
 router.get("/", passport.authenticate("jwt", { session: false }), get_comic_chapters)
-
+router.put("/:id", update) 
 export default router

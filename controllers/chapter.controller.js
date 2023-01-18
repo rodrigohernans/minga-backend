@@ -1,4 +1,5 @@
 import { Chapter } from "../models/Chapter.model.js"
+import { response } from "express"
 
 const controller = {
     create: async (req, res) => {
@@ -64,5 +65,23 @@ const controller = {
             next(error)
         }
     },
+    update: async (req, res, next) => {
+        try {
+            const { id } = req.params
+            let chapter = await Chapter.findOneAndUpdate(
+                { _id: id },
+                req.body,
+                { new: true }
+            ) 
+            console.log(chapter)
+            res.status(200).json({
+                success: true,
+                response: chapter
+            })
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 }
 export default controller
