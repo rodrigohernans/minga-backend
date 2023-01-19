@@ -73,14 +73,27 @@ const controller = {
                 req.body,
                 { new: true }
             ) 
-            console.log(chapter)
             res.status(200).json({
                 success: true,
                 response: chapter
             })
         }
-        catch (error) {
-            console.log(error)
+        catch (err) {
+            console.log(err)
+        }
+    },
+    destroy: async (req, res, next) => {
+        try {
+            const {id} = req.params
+            await Chapter.findOneAndDelete(id)
+            res.status(200).json({
+                success: true,
+                response: "deleted"
+            })
+
+        }
+        catch  (err) {
+            console.log(err)
         }
     }
 }
