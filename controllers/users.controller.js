@@ -1,8 +1,8 @@
 import { User } from "../models/User.model.js"
-import bcryptjs from "bcryptjs" 
-import crypto from "crypto" 
+import bcryptjs from "bcryptjs"
+import crypto from "crypto"
 import defaultResponse from "../config/response.js"
-import jwt from "jsonwebtoken" 
+import jwt from "jsonwebtoken"
 
 const controller = {
     signup: async (req, res, next) => {
