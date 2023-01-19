@@ -104,12 +104,11 @@ const controller = {
         try {
             let comics = await Comic.find(filterByProfile, "-author_id -company_id -createdAt -updatedAt -__v")
                 .sort(orderByDate)
-                // .skip( pagination.limit > 0 ? ((pagination.limit - 1) * 5 ) : 0)
                 .limit(pagination.limit)
             if (comics.length === 0) {
                 res.status(404).json({
                     success: false,
-                    message: "Comics not found"
+                    message: "No comics found matching the filters",
                 })
             } else {
                 res.status(200).json({

@@ -1,4 +1,4 @@
-import { Chapter } from "../models/Chapter.model.js";
+import { Chapter } from "../models/Chapter.model.js"
 
 const controller = {
   create: async (req, res) => {
