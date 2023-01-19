@@ -7,10 +7,11 @@ import validator from "../middlewares/validator.js"
 
 const router = express.Router()
 
-const { create, get_reactions } = controller
+const { create, get_reactions, get_user_favourites } = controller
 
 router.post("/", passport.authenticate("jwt", { session: false }), validator(createSchema), oppositeReactionExists, create)
 
 router.get("/", passport.authenticate("jwt", { session: false }), get_reactions)
+router.get("/favourites/:user_id", passport.authenticate("jwt", { session: false }), get_user_favourites)
 
 export default router
