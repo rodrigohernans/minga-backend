@@ -2,6 +2,7 @@ import { parse } from "dotenv"
 import { Author } from "../models/Author.model.js"
 import { Category } from "../models/Category.model.js"
 import { Comic } from "../models/Comic.model.js"
+import { Company } from "../models/Company.model.js"
 
 const controller = {
     create: async (req, res, next) => {
@@ -154,11 +155,18 @@ const controller = {
             next(error)
         }
     },
-    get_comics_from_company: async (req, res, next) => {
-        console.log(req.user.id)
+    get_comics_from_CompanyOrAuthor: async (req, res, next) => {
+
         try{
-            const comics = await Comic.find()
-            console.log(comics)
+            let comics;
+            if(req.user.is_author){
+                const author = await Author.findOne({user_id: req.user.id})            
+                comics = await Comic.find({author_id: author._id})
+            }
+            if(req.user.is_company){
+                const company = await Company.findOne({user_id: "63c5a72f3395adc7174cea82"})          
+                comics = await Comic.find({company_id: company._id})
+            }
             if (comics.length === 0) {
                 res.status(404).json({
                     success: false,
@@ -174,7 +182,47 @@ const controller = {
         }catch(error){
             next(error)
         }
-    }
+    },
+    edit_comic: async (req, res, next) => {
+        const { id } = req.param 
+        try{
+            const comic = await Comic.findOneAndUpdate(id)
+            if (comic.length === 0) {
+                res.status(404).json({
+                    success: false,
+                    message: "No comics found matching the filters",
+                })
+            } else {
+                res.status(200).json({
+                    success: true,
+                    response: comic,
+                    message: "Comics found"
+                })
+            }
+        }catch (error){
+            next(error)
+        }
+    },
+    delete_comic: async (req, res, next) => {
+        const { id } = req.param 
+        try{
+            const comic = await Comic.findOneAndDelete(id)
+            if (comic.length === 0) {
+                res.status(404).json({
+                    success: false,
+                    message: "No comics found matching the filters",
+                })
+            } else {
+                res.status(200).json({
+                    success: true,
+                    response: comic,
+                    message: "Comics found"
+                })
+            }
+        }catch (error){
+            next(error)
+        }
+    } 
 }
 
 export default controller
