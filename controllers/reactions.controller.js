@@ -136,15 +136,15 @@ const controller = {
     get_user_favourites: async (req, res, next) => {
         try {
             let { user_id } = req.params
-            let { limit, category_id } = req.query
+            let { limit, category_id, order } = req.query
             let favourites = await Reaction.find({
                 user_id,
                 name: "favourite",
             })
             .limit(parseInt(limit))
             .populate("comic_id")
+            .sort({ createdAt: order })
             let favouriteComics = favourites.map((favourite) => favourite.comic_id)
-            // filter favouriteComics from category_id query
             if (category_id) {
                 favouriteComics = favouriteComics.filter(
                     (comic) => comic.category_id == category_id
