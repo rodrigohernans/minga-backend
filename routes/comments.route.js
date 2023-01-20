@@ -6,9 +6,9 @@ import validator from "../middlewares/validator.js"
 
 const router = express.Router()
 
-const { create } = controller
+const { create, get_comments } = controller
 
-// POST create a comment
 router.post("/", passport.authenticate("jwt", { session: false }), validator(createSchema), create)
+router.get("/", passport.authenticate("jwt", {session: false}), get_comments)
 
 export default router
