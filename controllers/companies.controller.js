@@ -34,16 +34,17 @@ const controller = {
     },
     update: async (req, res, next) => {
         const companyInfo = req.body;
-            try{
-            let result = await Company.findOneAndUpdate({_id: companyInfo._id}, {$set: companyInfo});
+        let user_id = req.user.id
+        try {
+            let result = await Company.findOneAndUpdate({user_id: user_id}, {$set: companyInfo}, {new: true});
             return res.status(200).json({
                 success: true,
-                message: 'Company updated successfully'
+                message: result
             });
-            } catch(error){
-               next(error)
-                };
-            },
+        } catch(error){
+            next(error)
+        }
+    },
 }
 
 export default controller

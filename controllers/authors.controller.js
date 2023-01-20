@@ -14,7 +14,6 @@ const authorController = {
     },
     get_author: async (req, res, next) => {
         const { id } = req.params
-        console.log(id)
         try {
             let author = await Author.find({ _id: id }, "-_id -user_id")
             if (author) {
@@ -34,16 +33,17 @@ const authorController = {
     },
     update: async (req, res, next) => {
         const authorInfo = req.body;
-            try{
-                let result = await Author.findOneAndUpdate({id: authorInfo.id}, {$set: authorInfo});
+        let user_id = req.user.id
+        try {
+            let result = await Author.findOneAndUpdate({user_id: user_id}, {$set: authorInfo}, {new: true});
             return res.status(200).json({
                 success: true,
                 message: result
             });
-            } catch(error){
-              next(error)
-            }
-        },
+        } catch(error){
+            next(error)
+        }
+    },
 }
 
 export default authorController

@@ -19,7 +19,8 @@ passport.use(
                         photo: user.photo,
                         is_admin: user.is_admin,
                         is_author: user.is_author,
-                        is_company: user.is_company
+                        is_company: user.is_company,
+                        id: user._id
                     }
                     return done(null, user)
                 } else {
