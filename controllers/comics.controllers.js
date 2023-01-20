@@ -1,3 +1,4 @@
+import { parse } from "dotenv"
 import { Author } from "../models/Author.model.js"
 import { Category } from "../models/Category.model.js"
 import { Comic } from "../models/Comic.model.js"
@@ -150,6 +151,27 @@ const controller = {
                 response: comics,
             })
         } catch (error) {
+            next(error)
+        }
+    },
+    get_comics_from_company: async (req, res, next) => {
+        console.log(req.user.id)
+        try{
+            const comics = await Comic.find()
+            console.log(comics)
+            if (comics.length === 0) {
+                res.status(404).json({
+                    success: false,
+                    message: "No comics found matching the filters",
+                })
+            } else {
+                res.status(200).json({
+                    success: true,
+                    response: comics,
+                    message: "Comics found"
+                })
+            }
+        }catch(error){
             next(error)
         }
     }

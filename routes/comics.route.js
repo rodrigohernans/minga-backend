@@ -15,11 +15,11 @@ const {
     get_comic,
     get_comics_from_cia,
     get_comics_from_author,
+    get_comics_from_company,
 } = controller
 
 router.post("/", comicTitleExists, validator(createSchema), create)
-
-router.get("/:id", passport.authenticate("jwt", { session: false }), get_comic)
+router.get("/me", passport.authenticate("jwt", { session: false }), get_comics_from_company)
 router.get("/", passport.authenticate("jwt", { session: false }), get_comics)
 router.get(
     "/profile/company/",
@@ -31,5 +31,7 @@ router.get(
     passport.authenticate("jwt", { session: false }),
     get_comics_from_author
 )
+
+router.get("/:id", passport.authenticate("jwt", { session: false }), get_comic)
 
 export default router
