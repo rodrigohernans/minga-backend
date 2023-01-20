@@ -12,7 +12,7 @@ const canEdit = async (req, res, next) => {
             return res.status(400).json({
                 success: false,
                 response: [
-                    {message: "is not author of this comic"}
+                    {message: "Is not author of this comic"}
                 ]
             })
         }
@@ -25,7 +25,7 @@ const canEdit = async (req, res, next) => {
             return res.status(400).json({
                 success: false,
                 response: [
-                    {message: "is not company author of this comic"}
+                    {message: "Company is not author of this comic"}
                 ]
             })
         }
