@@ -6,7 +6,7 @@ import schema from "../schemas/authors.schema.js"
 import validator from "../middlewares/validator.js"
 
 const router = express.Router()
-const { create, get_author } = authorcontroller
+const { create, get_author, update } = authorcontroller
 
 router.post(
     "/",
@@ -16,5 +16,7 @@ router.post(
     create
 )
 router.get("/:id", passport.authenticate("jwt", { session: false }), get_author)
+
+router.put("/me", passport.authenticate("jwt", {session: false}), update)
 
 export default router
