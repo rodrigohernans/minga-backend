@@ -7,6 +7,7 @@ import companies from "./companies.route.js"
 import express from "express"
 import reactions from "./reactions.route.js"
 import users from "./users.route.js"
+import lastreads from "./lastreads.route.js"
 const router = express.Router()
 
 router.get("/", function (req, res, next) {
@@ -21,5 +22,6 @@ router.use("/chapters", chapters)
 router.use("/comics", comics)
 router.use("/comments", comments)
 router.use("/reactions", reactions)
+router.use("/lastreads", lastreads)
 
 export default router

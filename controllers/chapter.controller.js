@@ -16,7 +16,6 @@ const controller = {
         const { _id } = req.params
         try {
             const comic = await Chapter.findById(_id)
-            console.log(comic)
             res.status(200).json({
                 success: true,
                 response: comic,

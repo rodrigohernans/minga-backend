@@ -10,7 +10,7 @@ const controller = {
         req.body.is_admin = false
         req.body.is_author = false
         req.body.is_company = false
-        req.body.is_verified = true 
+        req.body.is_verified = true
         req.body.verify_code = crypto.randomBytes(10).toString("hex")
         req.body.password = bcryptjs.hashSync(req.body.password, 10)
         try {

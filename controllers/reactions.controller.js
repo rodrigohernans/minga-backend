@@ -134,6 +134,7 @@ const controller = {
         }
     },
     get_user_favourites: async (req, res, next) => {
+        let token = req.headers.authorization.split(" ")[1]
         try {
             let { user_id } = req.params
             let { limit, category_id, order } = req.query
@@ -150,10 +151,17 @@ const controller = {
                     (comic) => comic.category_id == category_id
                 )
             }
-            res.status(200).json({
-                success: true,
-                response: favouriteComics,
-            })
+            if (favouriteComics.length === 0) {
+                res.status(400).json({
+                    success: false,
+                    message: "No comics found matching the filters",
+                })
+            } else {
+                res.status(200).json({
+                    success: true,
+                    response: favouriteComics,
+                })
+            }
         } catch (error) {
             next(error)
         }
