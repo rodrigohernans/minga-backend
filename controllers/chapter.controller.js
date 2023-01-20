@@ -81,7 +81,7 @@ const controller = {
         catch (err) {
             console.log(err)
         }
-    },
+    }, 
     destroy: async (req, res, next) => {
         try {
             const { id } = req.params
