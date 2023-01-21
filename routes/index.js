@@ -12,7 +12,7 @@ router.get("/", function (req, res, next) {
     res.send("minga server ready")
 })
 
-router.use("/companies", companies)
+router.use("/company", companies)
 router.use("/auth", users)
 router.use("/categories", categories)
 router.use("/authors", authors)

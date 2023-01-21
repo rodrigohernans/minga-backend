@@ -9,12 +9,17 @@ const controller = {
                 response: req.body,
             })
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                success: false,
+                response: "Failure to create new company",
+            })
+            console.log(error)
         }
     },
-    get_company: async (req, res, next) => {
+    get_company: async (req, res, netx) => {
         try {
             const { id } = req.params
+            console.log(id)
             let companies = await Company.findById(id, "-_id -user_id -createdAt -updatedAt -active -__v")
             if(companies){
                 res.status(200).json({
@@ -29,22 +34,9 @@ const controller = {
             }
             
         } catch(error) {
-            next(error)
+            netx(error)
         }
-    },
-    update: async (req, res, next) => {
-        const companyInfo = req.body;
-        let user_id = req.user.id
-        try {
-            let result = await Company.findOneAndUpdate({user_id: user_id}, {$set: companyInfo}, {new: true});
-            return res.status(200).json({
-                success: true,
-                message: result
-            });
-        } catch(error){
-            next(error)
-        }
-    },
+    }
 }
 
 export default controller
