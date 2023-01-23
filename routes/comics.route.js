@@ -3,6 +3,7 @@ import activeCompany from "../middlewares/activeCompany.js"
 import comicTitleExists from "../middlewares/comicTitleExists.js"
 import controller from "../controllers/comics.controllers.js"
 import { createSchema } from "../schemas/comics.schema.js"
+import { editComic } from "../schemas/comicEdit.shema.js"
 import express from "express"
 import passport from "passport"
 import validator from "../middlewares/validator.js"
@@ -36,7 +37,7 @@ router.get(
 )
 
 router.get("/:id", passport.authenticate("jwt", { session: false }), get_comic)
-router.put("/:id", passport.authenticate("jwt", { session: false }), isAuthorOfComic, validator(createSchema), edit_comic)
+router.put("/:id", passport.authenticate("jwt", { session: false }), isAuthorOfComic, validator(editComic), edit_comic)
 router.delete("/:id", passport.authenticate("jwt", { session: false }), isAuthorOfComic, delete_comic)
 
 export default router

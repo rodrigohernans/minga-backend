@@ -156,16 +156,35 @@ const controller = {
         }
     },
     get_comics_from_CompanyOrAuthor: async (req, res, next) => {
+        let pagination = {
+            page: 1,
+            limit: 5,
+        }
+
+        if(req.query.limit){
+            pagination.limit = req.query.limit
+        }
 
         try{
+            let filter = {}
             let comics;
             if(req.user.is_author){
-                const author = await Author.findOne({user_id: req.user.id})            
-                comics = await Comic.find({author_id: author._id})
+                const author = await Author.findOne({user_id: req.user.id})
+                filter.author_id = author._id
+                if(req.query.category_id){
+                    filter.category_id = req.query.category_id
+                }            
+                comics = await Comic.find(filter)
+                .limit(pagination.limit)
             }
             if(req.user.is_company){
-                const company = await Company.findOne({user_id: "63c5a72f3395adc7174cea82"})          
-                comics = await Comic.find({company_id: company._id})
+                const company = await Company.findOne({user_id: req.user.id})
+                filter.company_id = company._id
+                if(req.query.category_id){
+                    filter.category_id = req.query.category_id
+                }      
+                comics = await Comic.find(filter)
+                .limit(pagination.limit)
             }
             if (comics.length === 0) {
                 res.status(404).json({
@@ -184,9 +203,14 @@ const controller = {
         }
     },
     edit_comic: async (req, res, next) => {
-        const { id } = req.param 
+        const { id } = req.params
+        console.log(req.params.id)
         try{
-            const comic = await Comic.findOneAndUpdate(id)
+            const comic = await Comic.findOneAndUpdate(
+                {_id: id},
+                req.body,
+                {new: true}
+                )
             if (comic.length === 0) {
                 res.status(404).json({
                     success: false,
@@ -196,7 +220,7 @@ const controller = {
                 res.status(200).json({
                     success: true,
                     response: comic,
-                    message: "Comics found"
+                    message: "Comic updated"
                 })
             }
         }catch (error){
@@ -204,9 +228,9 @@ const controller = {
         }
     },
     delete_comic: async (req, res, next) => {
-        const { id } = req.param 
+        const { id } = req.params
         try{
-            const comic = await Comic.findOneAndDelete(id)
+            const comic = await Comic.findByIdAndDelete(id)
             if (comic.length === 0) {
                 res.status(404).json({
                     success: false,
@@ -215,8 +239,7 @@ const controller = {
             } else {
                 res.status(200).json({
                     success: true,
-                    response: comic,
-                    message: "Comics found"
+                    response: "Comic deleted"
                 })
             }
         }catch (error){
