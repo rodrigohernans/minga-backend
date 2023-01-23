@@ -35,10 +35,7 @@ const controller = {
                 response: last_reads,
             })
         } catch (error) {
-            res.status(404).json({
-                success: false,
-                response: "Error Obtaining Last Reads",
-            })
+            next(error)
         }
     },
     update: async (req, res, next) => {
@@ -55,10 +52,7 @@ const controller = {
                 response: last_read,
             })
         } catch (error) {
-            res.status(404).json({
-                success: false,
-                response: "Error Updating Last Read",
-            })
+            next(error)
         }
     },
 }
