@@ -27,8 +27,8 @@ export const verifyAuthor = async (req, res, next) => {
     req.body.data =
         "You must to be the author of the comic to be able to modify or delete";
     return defaultResponse(req, res);
-
 }
+
 
     //aca vamos a popular chapter con comic_id para encontrar el id del autor... ahora esta info de arriba me tira el user_id del autor.. pero lo que me interesa es el id_ de ese autor.. la idea es que si ese autor esta verificado para  a este middle... entonces una vez verificado la cosa es asi... el _id de este usuario es igual al id del comic que tiene autor_id .. 
 
