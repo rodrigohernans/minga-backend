@@ -70,7 +70,7 @@ const controller = {
             const { id } = req.params
             let chapter = await Chapter.findOneAndUpdate(
                 { _id: id },
-                 req.body,  //propiedad computada.. primero resuelve lo que esta dentro del array.. 
+                req.body,  
                 { new: true }
             )
             res.status(200).json({
