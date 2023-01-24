@@ -17,8 +17,7 @@ const controller = {
   },
   get_comments: async (req, res, next) => {
     let consultas = {};
-    let ordenamiento = { order: "asc" };
-    let paginacion = { limit: 50 };
+    let paginacion = { limit: 3 };
     const { commentable_id, chapter_id, comment_id } = req.query;
     if (req.query.commentable_id) {
       consultas.commentable_id = commentable_id;
@@ -29,20 +28,17 @@ const controller = {
     if (req.query.comment_id) {
       req.query.comment_id = comment_id;
     }
-    if (req.query.sort) {
-      ordenamiento = req.query.sort;
-    }
     if (req.query.limit) {
       paginacion.limit = req.query.limit;
     }
     try {
-      const comments = await Comment.find(consultas)
-        .sort(ordenamiento)
-        .limit(paginacion.limit)
-      res.status(200).json({
-        success: true,
-        response: comments,
-      });
+        const comments = await Comment.find(consultas)
+          .sort({createdAt: "desc"})
+          .limit(paginacion.limit)
+        res.status(200).json({
+          success: true,
+          response: comments,
+        });
     } catch (error) {
       res.status(400).json({
         success: false,

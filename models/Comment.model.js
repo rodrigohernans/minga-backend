@@ -5,7 +5,7 @@ const commentSchema = new mongoose.Schema(
         chapter_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "chapters",
-            required: true,
+            required: false,
         },
         user_id: {
             type: mongoose.Schema.Types.ObjectId,
