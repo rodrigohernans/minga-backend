@@ -3,6 +3,7 @@ import { Reaction } from "../models/Reaction.model.js"
 const controller = {
     create: async (req, res) => {
         try {
+            
             let { comic_id, user_id, name } = req.body
             if (name === "like") {
                 let foundLikeReaction = await Reaction.findOne({
