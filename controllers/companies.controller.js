@@ -20,7 +20,28 @@ const controller = {
         try {
             const { id } = req.params
             console.log(id)
-            let companies = await Company.findById(id, "-_id -user_id -createdAt -updatedAt -active -__v")
+            let companies = await Company.find({_id: id}, "-_id -user_id -createdAt -updatedAt -active -__v")
+            if(companies){
+                res.status(200).json({
+                    success: true,
+                    response: companies,
+                })
+            } else{
+                res.status(400).json({
+                    success: false,
+                    response: 'Company not found'
+                })
+            }
+            
+        } catch(error) {
+            netx(error)
+        }
+    },
+    get_company_from_user: async (req, res, netx) => {
+        try {
+            const { id } = req.params
+            console.log(id)
+            let companies = await Company.find({user_id: id}, "-_id -user_id -createdAt -updatedAt -active -__v")
             if(companies){
                 res.status(200).json({
                     success: true,
