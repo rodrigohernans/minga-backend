@@ -16,7 +16,7 @@ const authorController = {
         const { id } = req.params
         console.log(id)
         try {
-            let author = await Author.find({ _id: id }, "-_id -user_id")
+            let author = await Author.find({_id: id}, "-_id -user_id")
             if (author) {
                 res.status(200).json({
                     success: true,
@@ -32,6 +32,26 @@ const authorController = {
             next(error)
         }
     },
+    get_author_from_user: async (req, res, next) => {
+        const { id } = req.params
+        console.log(id)
+        try {
+            let author = await Author.find({user_id: id}, "-_id -user_id")
+            if (author) {
+                res.status(200).json({
+                    success: true,
+                    response: author,
+                })
+            } else {
+                res.status(400).json({
+                    success: false,
+                    response: "Error obtaining Author",
+                })
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 export default authorController
