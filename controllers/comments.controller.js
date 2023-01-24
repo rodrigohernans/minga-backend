@@ -17,8 +17,8 @@ const controller = {
   },
   get_comments: async (req, res, next) => {
     let consultas = {};
-    let ordenamiento = { order: "desc" };
-    let paginacion = { limit: 5 };
+    let ordenamiento = { order: "asc" };
+    let paginacion = { limit: 50 };
     const { commentable_id, chapter_id, comment_id } = req.query;
     if (req.query.commentable_id) {
       consultas.commentable_id = commentable_id;
