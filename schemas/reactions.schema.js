@@ -8,6 +8,5 @@ export const createSchema = Joi.object({
         "string.max": `Reaction must have a maximum length of {#limit}`,
         "string.base": `Reaction must be a type of 'text'`,
     }),
-    comic_id: Joi.objectId().required(),
-    user_id: Joi.objectId().required(),
+    comic_id: Joi.objectId().required()
 })
