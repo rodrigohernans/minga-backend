@@ -70,28 +70,34 @@ const controller = {
             const { id } = req.params
             let chapter = await Chapter.findOneAndUpdate(
                 { _id: id },
-                req.body,  
-                { new: true }
-            )
-            res.status(200).json({
-                success: true,
-                response: chapter
-            })
+                req.body,
+                { new: true })
+            if (chapter) {
+                res.status(200).json({
+                    success: true,
+                    response: chapter
+                })
+            } else {
+                res.status(404).json({
+                    success: false,
+                    response: "Error obtaining chapter",
+                })
+            }
         }
         catch (err) {
-            console.log(err)
+            return next()
         }
-    }, 
+    },
 
     destroy: async (req, res, next) => {
         try {
             const { id } = req.params
             await Chapter.findOneAndDelete(
-                { _id : id} 
-                )
+                { _id: id }
+            )
             res.status(200).json({
                 success: true,
-                response: "deleted"
+                response: "deleted chapter"
             })
         }
         catch (err) {
