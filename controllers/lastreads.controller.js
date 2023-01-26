@@ -1,12 +1,14 @@
 import { LastRead } from "../models/LastRead.model.js"
 
 const controller = {
-    create: async (req, res) => {
+    create: async (req, res, next) => {
         try {
-            await LastRead.create(req.body)
+            let { id } = req.user
+            let { page, chapter_id, comic_id } = req.body
+            await LastRead.create({ user_id: id, page, comic_id, chapter_id })
             res.status(201).json({
                 success: true,
-                response: req.body,
+                response: "Last Read created",
             })
         } catch (error) {
             next(error)
@@ -39,12 +41,13 @@ const controller = {
         }
     },
     update: async (req, res, next) => {
+        const { id } = req.user
         const { chapter_id } = req.params
         const { page } = req.body
         try {
             const last_read = await LastRead.findOneAndUpdate(
-                { chapter_id: chapter_id, user_id: req.user.id },
-                { page },
+                { chapter_id: chapter_id, user_id: id },
+                { page: page },
                 { new: true }
             )
             res.status(200).json({
