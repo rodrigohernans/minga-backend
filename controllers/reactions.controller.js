@@ -1,26 +1,27 @@
 import { Reaction } from "../models/Reaction.model.js"
 
 const controller = {
-    create: async (req, res) => {
+    create: async (req, res, next) => {
         try {
-            let { comic_id, user_id, name } = req.body
+            let { id } = req.user
+            let { comic_id, name } = req.body
             if (name === "like") {
                 let foundLikeReaction = await Reaction.findOne({
                     comic_id,
-                    user_id,
+                    user_id: id,
                     name: "like",
                 })
                 if (foundLikeReaction) {
                     await Reaction.findByIdAndDelete(foundLikeReaction._id)
                     res.status(200).json({
                         success: true,
-                        response: req.body,
+                        response: "Like reaction deleted",
                     })
                 } else {
-                    await Reaction.create({ comic_id, user_id, name })
+                    await Reaction.create({ comic_id, user_id: id, name })
                     res.status(200).json({
                         success: true,
-                        response: req.body,
+                        response: "Like reaction created",
                     })
                 }
             } else if (name === "dislike") {
@@ -33,37 +34,41 @@ const controller = {
                     await Reaction.findByIdAndDelete(foundDislikeReaction._id)
                     res.status(200).json({
                         success: true,
-                        response: req.body,
+                        response: "Dislike reaction deleted",
                     })
                 } else {
-                    await Reaction.create({ comic_id, user_id, name })
+                    await Reaction.create({ comic_id, user_id: id, name })
                     res.status(200).json({
                         success: true,
-                        response: req.body,
+                        response: "Reaction created",
                     })
                 }
             } else if (name === "favourite") {
                 let foundFavouriteReaction = await Reaction.findOne({
                     comic_id,
-                    user_id,
+                    user_id: id,
                     name: "favourite",
                 })
                 if (foundFavouriteReaction) {
                     await Reaction.findByIdAndDelete(foundFavouriteReaction._id)
                     res.status(200).json({
                         success: true,
-                        response: req.body,
+                        response: "Favourite reaction deleted",
                     })
                 } else {
-                    await Reaction.create({ comic_id, user_id, name })
+                    await Reaction.create({ comic_id, user_id: id, name })
                     res.status(200).json({
                         success: true,
-                        response: req.body,
+                        response: "Favourite reaction created",
                     })
                 }
             } else {
                 // If the reaction doesn't exist, create it
-                let newReaction = await Reaction.create(req.body)
+                let newReaction = await Reaction.create({
+                    comic_id,
+                    user_id: id,
+                    name,
+                })
                 res.status(201).json({
                     success: true,
                     response: newReaction,
@@ -75,7 +80,8 @@ const controller = {
     },
     get_reactions: async (req, res, next) => {
         try {
-            let { comic_id, user_id } = req.query
+            let { id } = req.user
+            let { comic_id } = req.query
             let reactions = await Reaction.find({ comic_id })
             let likes = reactions.filter((reaction) => reaction.name === "like")
             let dislikes = reactions.filter(
@@ -89,23 +95,20 @@ const controller = {
                 dislikes: false,
                 favourites: false,
             }
-            if (user_id) {
-                let userReactions = reactions.filter(
-                    (reaction) => reaction.user_id == user_id
-                )
-                if (userReactions.length > 0) {
-                    userReactions.forEach((reaction) => {
-                        if (reaction.name === "like") {
-                            reacted.likes = true
-                        } else if (reaction.name === "dislike") {
-                            reacted.dislikes = true
-                        } else if (reaction.name === "favourite") {
-                            reacted.favourites = true
-                        }
-                    })
-                }
+            let userReactions = await Reaction.find({ user_id: id, comic_id })
+            console.log(userReactions)
+            if (userReactions.length > 0) {
+                userReactions.forEach((reaction) => {
+                    if (reaction.name === "like") {
+                        reacted.likes = true
+                    } else if (reaction.name === "dislike") {
+                        reacted.dislikes = true
+                    } else if (reaction.name === "favourite") {
+                        reacted.favourites = true
+                    }
+                })
             }
-            
+
             res.status(200).json({
                 success: true,
                 response: {
@@ -118,7 +121,9 @@ const controller = {
                         },
                         dislike: {
                             count: dislikes.length,
-                            user_ids: dislikes.map((dislike) => dislike.user_id),
+                            user_ids: dislikes.map(
+                                (dislike) => dislike.user_id
+                            ),
                         },
                         favourite: {
                             count: favourites.length,
@@ -134,7 +139,6 @@ const controller = {
         }
     },
     get_user_favourites: async (req, res, next) => {
-        let token = req.headers.authorization.split(" ")[1]
         try {
             let { user_id } = req.params
             let { limit, category_id, order } = req.query
@@ -142,10 +146,12 @@ const controller = {
                 user_id,
                 name: "favourite",
             })
-            .limit(parseInt(limit))
-            .populate("comic_id")
-            .sort({ createdAt: order })
-            let favouriteComics = favourites.map((favourite) => favourite.comic_id)
+                .limit(parseInt(limit))
+                .populate("comic_id")
+                .sort({ createdAt: order })
+            let favouriteComics = favourites.map(
+                (favourite) => favourite.comic_id
+            )
             if (category_id) {
                 favouriteComics = favouriteComics.filter(
                     (comic) => comic.category_id == category_id
