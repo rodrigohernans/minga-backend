@@ -5,7 +5,9 @@ import comics from "./comics.route.js"
 import comments from "./comments.route.js"
 import companies from "./companies.route.js"
 import express from "express"
+import mercadopago from "./mercadopago.route.js"
 import users from "./users.route.js"
+
 const router = express.Router()
 
 router.get("/", function (req, res, next) {
@@ -19,5 +21,6 @@ router.use("/authors", authors)
 router.use("/chapters", chapters)
 router.use("/comics", comics)
 router.use("/comments", comments)
+router.use("/donations", mercadopago) 
 
 export default router
