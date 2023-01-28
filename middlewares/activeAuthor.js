@@ -13,7 +13,7 @@ async function activeAuthor(req, res, next) {
             { message: "You must be an active author to be able to post" },
         ]
         return defaultResponse(req, res)
-    }
+    } 
     req.body.success = false
     req.body.sc = 404
     req.body.data = [{ message: "The author was not found, " }]
