@@ -27,6 +27,7 @@ export const crearOrden = async (req, res) => {
             failure: "http://localhost:3000",
         },
         auto_return: "approved",
+        "binary_mode": true
     };
 
 
@@ -35,12 +36,10 @@ export const crearOrden = async (req, res) => {
 
             if (req.body.unit_price) {
                 return res.status(response.status).json({
-                    response
-                    /*   init_point: response.body.init_point,
-                      status: response.body.status, */
+                    response,
                 })
             } else {
-                console.log("esto seria los otros items")
+                console.log("Error obtained order")
             }
         })
         .catch(function (error) {
@@ -64,7 +63,6 @@ export const notificacionOrden = async (req, res) => {
 
 //esto como seria ............
         // En esta instancia deberás asignar el valor dentro de response.body.id por el ID de preferencia solicitado en el siguiente paso
-
 
 
 
