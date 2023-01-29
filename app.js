@@ -10,6 +10,10 @@ import logger from "morgan"
 import { notFoundHandler } from "./middlewares/notFoundHandler.js"
 import path from "path"
 
+/* import router from "./routes/newUser.route.js" */
+
+/* const createMail = router()  */
+
 const app = express()
 app.disable('etag')
 
