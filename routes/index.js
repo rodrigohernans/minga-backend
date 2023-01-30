@@ -20,6 +20,6 @@ router.use("/authors", authors)
 router.use("/chapters", chapters)
 router.use("/comics", comics)
 router.use("/comments", comments)
-/* router.use("/mail", newUser) */
+
 
 export default router

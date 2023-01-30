@@ -8,32 +8,54 @@ import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const msg = {
-  to: User.mail,
-  from: "arielgonzalezayala@gmail.com",
-  subject: "Finish setting up your Minga account",
-  text: "Here is your verification code:",
-  html: `<p>${User.verify_code}</p>`,
-};
-
 const controller = {
   signup: async (req, res, next) => {
-    req.body.is_online = false;
-    req.body.is_admin = false;
-    req.body.is_author = false;
-    req.body.is_company = false;
-    req.body.is_verified = false;
-    req.body.verify_code = crypto.randomBytes(10).toString("hex");
-    req.body.password = bcryptjs.hashSync(req.body.password, 10);
+    const user = {
+      mail: req.body.mail,
+      password: req.body.password,
+      photo: req.body.photo,
+      is_online: false,
+      is_admin: false,
+      is_author: false,
+      is_company: false,
+      is_verified: false,
+      verify_code: crypto.randomBytes(10).toString("hex"),
+      password: bcryptjs.hashSync(req.body.password, 10)
+    }
     try {
-			await accountVerificationMail(req, res)
-      await User.create(req.body); //crea el usuario
+      await User.create(user); //crea el usuario
+      await accountVerificationMail(user, res)
       req.body.success = true;
       req.body.sc = 201; //agrego el codigo de estado
-      req.body.data = "user created";
+      req.body.data = "User created!";
 			return defaultResponse(req, res)
     } catch (error) {
       next(error);
+    }
+  },
+
+  verifyCode: async (req, res, next) => {
+    const { user_id, verify_code } = req.query
+    try {
+      const user = await User.findById(user_id)
+      if (user.verify_code === verify_code) {
+        let consultas = { _id: user_id }
+        let update = { is_verified: true }
+        const verifiedUser = await User.findOneAndUpdate(consultas, update, {
+          new: true
+        })
+        req.body.success = true
+        req.body.sc = 200
+        req.body.data = "User successfully verified!!!"
+        return defaultResponse(req, res);
+      } else {
+        req.body.success = false
+        req.body.sc = 400
+        req.body.data = "Failed to verify user!!!"
+        return defaultResponse(req, res);
+      }
+    } catch (error) {
+      next(error)
     }
   },
 
