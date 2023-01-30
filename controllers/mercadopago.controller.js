@@ -22,9 +22,9 @@ export const crearOrden = async (req, res) => {
                 unit_price: produ.unit_price
             }],
         back_urls: {
-            success: "http://localhost:8000/api",
+            success: "http://localhost:3000",
             pending: "http://localhost:3000",
-            failure: "http://localhost:3000",
+            failure: "http://localhost:3000", 
         },
         auto_return: "approved",
         "binary_mode": true
