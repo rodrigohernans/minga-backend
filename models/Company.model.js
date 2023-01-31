@@ -25,7 +25,7 @@ const companySchema = new mongoose.Schema(
         },
         active: {
             type: Boolean,
-            required: true,
+            required: false,
         },
     },
     { timestamps: true }
