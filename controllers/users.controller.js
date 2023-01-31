@@ -44,6 +44,7 @@ const controller = {
                 user = {
                     mail: user.mail,
                     photo: user.photo,
+                    id: user.id
                 }
                 req.body.success = true
                 req.body.sc = 200
