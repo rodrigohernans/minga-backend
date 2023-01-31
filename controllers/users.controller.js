@@ -20,42 +20,43 @@ const controller = {
       is_company: false,
       is_verified: false,
       verify_code: crypto.randomBytes(10).toString("hex"),
-      password: bcryptjs.hashSync(req.body.password, 10)
-    }
+      password: bcryptjs.hashSync(req.body.password, 10),
+    };
     try {
-      await User.create(user); //crea el usuario
-      await accountVerificationMail(user, res)
+      const createdUser = await User.create(user); //crea el usuari
+      await accountVerificationMail(createdUser, res);
       req.body.success = true;
       req.body.sc = 201; //agrego el codigo de estado
       req.body.data = "User created!";
-			return defaultResponse(req, res)
+      await sgMail.send(message);
+      return defaultResponse(req, res);
     } catch (error) {
       next(error);
     }
   },
 
   verifyCode: async (req, res, next) => {
-    const { user_id, verify_code } = req.query
+    const { user_id, verify_code } = req.query;
     try {
-      const user = await User.findById(user_id)
+      const user = await User.findById(user_id);
       if (user.verify_code === verify_code) {
-        let consultas = { _id: user_id }
-        let update = { is_verified: true }
+        let consultas = { _id: user_id };
+        let update = { is_verified: true };
         const verifiedUser = await User.findOneAndUpdate(consultas, update, {
-          new: true
-        })
-        req.body.success = true
-        req.body.sc = 200
-        req.body.data = "User successfully verified!!!"
+          new: true,
+        });
+        req.body.success = true;
+        req.body.sc = 200;
+        req.body.data = "User successfully verified!!!";
         return defaultResponse(req, res);
       } else {
-        req.body.success = false
-        req.body.sc = 400
-        req.body.data = "Failed to verify user!!!"
+        req.body.success = false;
+        req.body.sc = 400;
+        req.body.data = "Failed to verify user!!!";
         return defaultResponse(req, res);
       }
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
 
