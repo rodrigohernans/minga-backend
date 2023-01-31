@@ -6,7 +6,7 @@ import validator from "../middlewares/validator.js"
 import lastReadExists from "../middlewares/lastReadExists.js"
 
 const router = express.Router()
-const { create, get_last_read, get_last_reads, update } = controller
+const { create, get_last_read, get_last_reads, update, destroy } = controller
 
 router.post(
     "/",
