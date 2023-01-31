@@ -22,9 +22,9 @@ export const crearOrden = async (req, res) => {
                 unit_price: produ.unit_price
             }],
         back_urls: {
-            success: "http://localhost:3000",
+            success: "http://localhost:3000/donation",
             pending: "http://localhost:3000",
-            failure: "http://localhost:3000", 
+            failure: "http://localhost:3000/donationerror",
         },
         auto_return: "approved",
         "binary_mode": true
@@ -50,19 +50,6 @@ export const crearOrden = async (req, res) => {
         })
 }
 
-
-
-/*
-export const notificacionOrden = async (req, res) => {
-    const datos = req.query
-    console.log(datos)
-    res.status(200)
-}
- */
-
-
-//esto como seria ............
-        // En esta instancia deberás asignar el valor dentro de response.body.id por el ID de preferencia solicitado en el siguiente paso
 
 
 
