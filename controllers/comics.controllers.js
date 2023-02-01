@@ -168,8 +168,10 @@ const controller = {
         try{
             let filter = {}
             let comics;
+            let author_company
             if(req.user.is_author){
                 const author = await Author.findOne({user_id: req.user.id})
+                author_company = author.name
                 filter.author_id = author._id
                 if(req.query.category_id){
                     filter.category_id = req.query.category_id
@@ -180,11 +182,13 @@ const controller = {
             if(req.user.is_company){
                 const company = await Company.findOne({user_id: req.user.id})
                 filter.company_id = company._id
+                author_company = company.name
                 if(req.query.category_id){
                     filter.category_id = req.query.category_id
                 }      
                 comics = await Comic.find(filter)
                 .limit(pagination.limit)
+                .populate('company_id',('name -_id'))
             }
             if (comics.length === 0) {
                 res.status(404).json({
@@ -195,7 +199,8 @@ const controller = {
                 res.status(200).json({
                     success: true,
                     response: comics,
-                    message: "Comics found"
+                    message: "Comics found",
+                    author_company: author_company
                 })
             }
         }catch(error){
