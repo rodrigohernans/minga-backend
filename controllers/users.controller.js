@@ -1,24 +1,64 @@
 import { User } from "../models/User.model.js"
+import accountVerificationMail from "../config/accountVerificationMail.js"
 import bcryptjs from "bcryptjs"
 import crypto from "crypto"
 import defaultResponse from "../config/response.js"
 import jwt from "jsonwebtoken"
+import sgMail from "@sendgrid/mail"
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const controller = {
     signup: async (req, res, next) => {
-        req.body.is_online = false
-        req.body.is_admin = false
-        req.body.is_author = false
-        req.body.is_company = false
-        req.body.is_verified = true
-        req.body.verify_code = crypto.randomBytes(10).toString("hex")
-        req.body.password = bcryptjs.hashSync(req.body.password, 10)
+        const user = {
+            mail: req.body.mail,
+            password: req.body.password,
+            photo: req.body.photo,
+            is_online: false,
+            is_admin: false,
+            is_author: false,
+            is_company: false,
+            is_verified: false,
+            verify_code: crypto.randomBytes(10).toString("hex"),
+            password: bcryptjs.hashSync(req.body.password, 10),
+        }
         try {
-            await User.create(req.body)
+            const createdUser = await User.create(user) //crea el usuari
+            await accountVerificationMail(createdUser, res)
             req.body.success = true
-            req.body.sc = 201
-            req.body.data = "user created"
+            req.body.sc = 201 //agrego el codigo de estado
+            req.body.data = "User created!"
+            await sgMail.send(message)
             return defaultResponse(req, res)
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    verifyCode: async (req, res, next) => {
+        const { user_id, verify_code } = req.query
+        try {
+            const user = await User.findById(user_id)
+            if (user.verify_code === verify_code) {
+                let consultas = { _id: user_id }
+                let update = { is_verified: true }
+                const verifiedUser = await User.findOneAndUpdate(
+                    consultas,
+                    update,
+                    {
+                        new: true,
+                    }
+                )
+                req.body.success = true
+                req.body.sc = 200
+                req.body.data = "User successfully verified!!!"
+                return defaultResponse(req, res)
+            } else {
+                req.body.success = false
+                req.body.sc = 400
+                req.body.data = "Failed to verify user!!!"
+                return defaultResponse(req, res)
+            }
         } catch (error) {
             next(error)
         }

@@ -9,6 +9,6 @@ export const createSchema = Joi.object({
         "string.base": `Comment must be a type of 'text'`,
     }),
     user_id: Joi.objectId().required(),
-    chapter_id: Joi.objectId().required(),
+    chapter_id: Joi.objectId(),
     commentable_id: Joi.objectId(),
 })

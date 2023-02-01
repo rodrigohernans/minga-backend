@@ -19,7 +19,7 @@ const controller = {
     get_comics: async (req, res, next) => {
         let consultas = {}
         let ordenamiento = {
-            title: 1,
+            createdAt: -1
         }
         let paginacion = {
             page: 1,
