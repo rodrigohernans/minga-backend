@@ -141,7 +141,7 @@ const controller = {
     get_user_favourites: async (req, res, next) => {
         try {
             let { user_id } = req.params
-            let { limit, category_id, order } = req.query
+            let { limit, category_id, order, title } = req.query
             let favourites = await Reaction.find({
                 user_id,
                 name: "favourite",
@@ -155,6 +155,18 @@ const controller = {
             if (category_id) {
                 favouriteComics = favouriteComics.filter(
                     (comic) => comic.category_id == category_id
+                )
+            }
+            if (title) {
+                favouriteComics = favouriteComics.filter((comic) =>
+                    comic.title.toLowerCase().includes(title.toLowerCase())
+                )
+            }
+            if (category_id && title) {
+                favouriteComics = favouriteComics.filter(
+                    (comic) =>
+                        comic.category_id == category_id &&
+                        comic.title.toLowerCase().includes(title.toLowerCase())
                 )
             }
             if (favouriteComics.length === 0) {
