@@ -1,5 +1,6 @@
 import "dotenv/config.js"
 import "./config/database.js"
+import "./config/mercadopagoConfig.js"
 
 import { __dirname } from "./utils.js"
 import cors from "cors"
@@ -17,9 +18,11 @@ import path from "path"
 const app = express()
 app.disable('etag')
 
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
+
 
 app.use(cors())
 app.use(logger("dev"))

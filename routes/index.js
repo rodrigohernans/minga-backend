@@ -8,6 +8,8 @@ import express from "express"
 import reactions from "./reactions.route.js"
 import users from "./users.route.js"
 import lastreads from "./lastreads.route.js"
+import mercadopago from "./mercadopago.route.js"
+
 const router = express.Router()
 
 router.get("/", function (req, res, next) {
@@ -23,5 +25,6 @@ router.use("/comics", comics)
 router.use("/comments", comments)
 router.use("/reactions", reactions)
 router.use("/lastreads", lastreads)
+router.use("/donations", mercadopago) 
 
 export default router
