@@ -2,7 +2,7 @@ import { Chapter } from "../models/Chapter.model.js"
 import { response } from "express"
 
 const controller = {
-    create: async (req, res) => {
+    create: async (req, res, next) => {
         try {
             await Chapter.create(req.body)
             res.status(201).json({

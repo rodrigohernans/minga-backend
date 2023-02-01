@@ -1,6 +1,6 @@
 import { createSchema, updateChapter } from "../schemas/chapter.schema.js"
 
-import comicTitleExists from "../middlewares/comicTitleExists.js"
+import chapterTitleExists from "../middlewares/chapterTitleExists.js"
 import controller from "../controllers/chapter.controller.js"
 import express from "express"
 import isAuthorAndCompany from "../middlewares/isAuthorAndCompany.js"
@@ -13,7 +13,7 @@ const router = express.Router()
 
 const { create, get_pages, get_comic_chapters, update, destroy } = controller
 
-router.post("/", passport.authenticate("jwt", { session: false }), validator(createSchema), orderExists, comicTitleExists, create)
+router.post("/", passport.authenticate("jwt", { session: false }), validator(createSchema), orderExists, chapterTitleExists, create)
 
 router.get("/:_id", passport.authenticate("jwt", { session: false }), get_pages,)
 router.get("/", passport.authenticate("jwt", { session: false }), get_comic_chapters)
