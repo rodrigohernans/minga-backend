@@ -11,7 +11,7 @@ export const crearOrden = async (req, res) => {
     })
 
     const produ = req.body
-    console.log(produ)
+    console.log(produ) 
 
     const preference = {
         items: [
@@ -33,7 +33,6 @@ export const crearOrden = async (req, res) => {
 
     mercadopago.preferences.create(preference)
         .then(function (response) {
-
             if (req.body.unit_price) {
                 return res.status(response.status).json({
                     response,

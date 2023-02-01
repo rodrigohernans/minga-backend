@@ -29,3 +29,5 @@ Comic.insertMany(comics)
     .then((comics) => {
         console.log('comic creados', comics)
     }).catch(err => console.log(err))
+
+    
