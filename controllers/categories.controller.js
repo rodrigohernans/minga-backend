@@ -1,21 +1,18 @@
 import { Category } from "../models/Category.model.js"
 import { User } from "../models/User.model.js"
+import defaultResponse from "../config/response.js"
 
 const controller = {
     // CRUD
-    create: async (req, res) => {
+    create: async (req, res, next) => {
         try {
             await Category.create(req.body)
-            res.status(201).json({
-                success: true,
-                response: req.body,
-            })
+            req.body.success = true
+            req.body.sc = 201
+            req.body.data = "create"
+            return defaultResponse(req, res)
         } catch (error) {
-            res.status(404).json({
-                success: false,
-                response: "Error al crear la categoría",
-            })
-            console.log(error)
+            next(error)
         }
     }, // Create a new category (POST)
     read: async (req, res) => {
