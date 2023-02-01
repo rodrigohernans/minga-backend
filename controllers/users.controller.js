@@ -1,26 +1,26 @@
 import { User } from "../models/User.model.js"
-import bcryptjs from "bcryptjs" 
-import crypto from "crypto" 
+import bcryptjs from "bcryptjs"
+import crypto from "crypto"
 import defaultResponse from "../config/response.js"
-import jwt from "jsonwebtoken" 
+import jwt from "jsonwebtoken"
 
 const controller = {
     signup: async (req, res, next) => {
-        req.body.is_online = false 
+        req.body.is_online = false
         req.body.is_admin = false
         req.body.is_author = false
         req.body.is_company = false
-        req.body.is_verified = true 
+        req.body.is_verified = true
         req.body.verify_code = crypto.randomBytes(10).toString("hex")
         req.body.password = bcryptjs.hashSync(req.body.password, 10)
         try {
             await User.create(req.body)
             req.body.success = true
-            req.body.sc = 201 
-            req.body.data = "user created" 
-            return defaultResponse(req, res) 
+            req.body.sc = 201
+            req.body.data = "user created"
+            return defaultResponse(req, res)
         } catch (error) {
-            next(error) 
+            next(error)
         }
     },
 
@@ -28,18 +28,16 @@ const controller = {
         let { password } = req.body
         let { user } = req
         try {
-            const verified = bcryptjs.compareSync(password, user.password) 
+            const verified = bcryptjs.compareSync(password, user.password)
             if (verified) {
                 await User.findOneAndUpdate(
-                    { mail: user.mail }, 
-                    { is_online: true }, 
-                    { new: true } 
+                    { mail: user.mail },
+                    { is_online: true },
+                    { new: true }
                 )
-                let token = jwt.sign(
-                    { id: user.id }, 
-                    process.env.KEY_JWT, 
-                    { expiresIn: 60 * 60 * 24 } 
-                )
+                let token = jwt.sign({ id: user.id }, process.env.KEY_JWT, {
+                    expiresIn: 60 * 60 * 24,
+                })
 
                 user = {
                     mail: user.mail,
@@ -55,7 +53,7 @@ const controller = {
             req.body.data = "invalid credentials"
             return defaultResponse(req, res)
         } catch (error) {
-            next(error) 
+            next(error)
         }
     },
 
@@ -75,9 +73,9 @@ const controller = {
         const { mail } = req.user
         try {
             await User.findOneAndUpdate(
-                { mail }, 
+                { mail },
                 { is_online: false },
-                { new: true } 
+                { new: true }
             )
             req.body.success = true
             req.body.sc = 200
