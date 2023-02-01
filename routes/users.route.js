@@ -10,9 +10,10 @@ import validator from "../middlewares/validator.js"
 
 let router = express.Router()
 
-const { signup, signin, signintoken, signout, read } = controller
+const { signup, verifyCode, signin, signintoken, signout, read } = controller
 
 router.post("/signup", accountExistsSignUp, validator(schema), signup)
+router.get("/verify_code", verifyCode)
 router.post("/signin", accountExistsSignIn, accountHasBeenVerified, signin)
 router.post(
     "/token",
