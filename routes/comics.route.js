@@ -5,9 +5,9 @@ import controller from "../controllers/comics.controllers.js"
 import { createSchema } from "../schemas/comics.schema.js"
 import { editComic } from "../schemas/comicEdit.schema.js"
 import express from "express"
+import isAuthorOfComic from "../middlewares/isAuthorOfComic.js"
 import passport from "passport"
 import validator from "../middlewares/validator.js"
-import isAuthorOfComic from "../middlewares/isAuthorOfComic.js"
 
 const router = express.Router()
 
@@ -24,7 +24,7 @@ const {
 
 router.post("/", comicTitleExists, validator(createSchema), create)
 router.get("/me", passport.authenticate("jwt", { session: false }), get_comics_from_CompanyOrAuthor)
-router.get("/", passport.authenticate("jwt", { session: false }), get_comics)
+router.get("/", get_comics)
 router.get(
     "/profile/company/",
     passport.authenticate("jwt", { session: false }),
